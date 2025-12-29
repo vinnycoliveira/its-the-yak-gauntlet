@@ -1,0 +1,446 @@
+/* ============================================
+   CARD EFFECT SAMPLES (glare, foil, worn, embossed)
+   ============================================ */
+
+/* Effect 1: Moving Glare on Hover (45° angle, randomized direction) */
+/* Adjust --glare-opacity (0-1) and --glare-blend (overlay, soft-light, screen, etc.) to taste */
+.card-effect-glare .card-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.4) 45%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  z-index: 25;
+  pointer-events: none;
+  transition: background-position 0.6s ease-out;
+  opacity: var(--glare-opacity, 0.35);
+  mix-blend-mode: var(--glare-blend, hard-light);
+}
+
+/* Top-left to bottom-right direction */
+.glare-tl-br .card-front::before {
+  background-position: 100% 100%;
+}
+
+.glare-tl-br:hover .card-front::before {
+  background-position: 0% 0%;
+}
+
+/* Top-right to bottom-left direction */
+.glare-tr-bl .card-front::before {
+  background: linear-gradient(
+    -45deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.4) 45%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  background-position: 0% 100%;
+}
+
+.glare-tr-bl:hover .card-front::before {
+  background-position: 100% 0%;
+}
+
+/* Effect 2: Foil/Holographic Effect */
+.card-effect-foil .card-front::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 128, 0.14) 0%,
+    rgba(0, 255, 255, 0.14) 25%,
+    rgba(255, 255, 0, 0.14) 50%,
+    rgba(128, 0, 255, 0.14) 75%,
+    rgba(255, 0, 128, 0.14) 100%
+  );
+  background-size: 200% 200%;
+  z-index: 22;
+  pointer-events: none;
+  opacity: 0.84;
+  mix-blend-mode: overlay;
+  animation: foil-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes foil-shimmer {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Effect 3: Worn Edges */
+.card-effect-worn .trading-card {
+  position: relative;
+}
+
+.card-effect-worn .trading-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  box-shadow:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.3),
+    inset -3px -3px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 21;
+  pointer-events: none;
+}
+
+.card-effect-worn .trading-card::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at top left, rgba(255,255,255,0.15) 0%, transparent 30%),
+    radial-gradient(ellipse at bottom right, rgba(0,0,0,0.2) 0%, transparent 40%);
+  z-index: 21;
+  pointer-events: none;
+}
+
+/* Effect 4: Embossed Border */
+.card-effect-embossed .trading-card {
+  box-shadow:
+    inset 0 0 0 4px var(--card-border-color, white),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+    inset 2px 0 0 rgba(255, 255, 255, 0.3),
+    inset -2px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-effect-embossed .trading-card::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent, rgba(0,0,0,0.1)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 21;
+  pointer-events: none;
+}
+
+/* ============================================
+   HOLOFOIL EFFECTS (Inspired by pokemon-cards-css)
+   ============================================ */
+
+/* Base holofoil variables */
+:root {
+  --glitter: url('/img/effects/glitter.png');
+  --glittersize: 4%;
+
+  /* Rainbow colors for holofoil effects */
+  --holo-red: hsl(2, 100%, 73%);
+  --holo-yellow: hsl(53, 100%, 69%);
+  --holo-green: hsl(93, 100%, 69%);
+  --holo-cyan: hsl(176, 100%, 76%);
+  --holo-blue: hsl(228, 100%, 74%);
+  --holo-purple: hsl(283, 100%, 73%);
+}
+
+/* Base shine layer - hidden by default */
+.card-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+
+/* Base glare layer - follows pointer */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 21;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsla(0, 0%, 100%, 0.8) 10%,
+    hsla(0, 0%, 100%, 0.65) 20%,
+    hsla(0, 0%, 0%, 0.5) 90%
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Show layers on hover */
+.card-container:hover .card-shine,
+.card-container:hover .card-glare {
+  opacity: 1;
+}
+
+/* ----------------------------------------
+   HOLO EFFECT - Vertical rainbow beams
+   ---------------------------------------- */
+.card-effect-holo .card-shine {
+  background-image:
+    repeating-linear-gradient(
+      110deg,
+      var(--holo-purple), var(--holo-blue), var(--holo-green),
+      var(--holo-yellow), var(--holo-red),
+      var(--holo-purple), var(--holo-blue), var(--holo-green),
+      var(--holo-yellow), var(--holo-red),
+      var(--holo-purple), var(--holo-blue), var(--holo-green),
+      var(--holo-yellow), var(--holo-red)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsl(0, 0%, 10%) 0px, hsl(0, 0%, 10%) 1px,
+      hsl(0, 0%, 40%) 1px, hsl(0, 0%, 40%) 2px
+    );
+  background-position:
+    calc(((50% - var(--background-x, 50%)) * 2.6) + 50%) calc(((50% - var(--background-y, 50%)) * 3.5) + 50%),
+    center center;
+  background-size: 400% 400%, cover;
+  background-blend-mode: overlay;
+  filter: brightness(1.1) contrast(1.1) saturate(1.2);
+  mix-blend-mode: color-dodge;
+}
+
+.card-effect-holo .card-shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0%, transparent 2%,
+      hsla(0, 0%, 70%, 0.3) 2.5%,
+      transparent 3%, transparent 10%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0%, transparent 3%,
+      hsla(0, 0%, 70%, 0.2) 3.5%,
+      transparent 4%, transparent 8%
+    );
+  background-position:
+    calc((((50% - var(--background-x, 50%)) * 1.65) + 50%) + (var(--background-y, 50%) * 0.5)) var(--background-x, 50%),
+    calc((((50% - var(--background-x, 50%)) * -0.9) + 50%) - (var(--background-y, 50%) * 0.75)) var(--background-y, 50%);
+  background-size: 200% 200%;
+  background-blend-mode: screen;
+  filter: brightness(1.15) contrast(1.1);
+  mix-blend-mode: hard-light;
+}
+
+.card-effect-holo .card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsla(0, 0%, 90%, 0.8) 0%,
+    hsla(0, 0%, 78%, 0.1) 25%,
+    hsl(0, 0%, 0%) 90%
+  );
+  mix-blend-mode: luminosity;
+  filter: brightness(0.6) contrast(4);
+}
+
+.card-effect-holo .card-glare {
+  filter: brightness(0.8) contrast(1.5);
+}
+
+/* ----------------------------------------
+   RADIANT EFFECT - Criss-cross diagonal
+   ---------------------------------------- */
+.card-effect-radiant .card-shine {
+  --barwidth: 1.2%;
+
+  background-image:
+    radial-gradient(
+      farthest-corner ellipse
+      at calc(((var(--pointer-x, 50%)) * 0.5) + 25%) calc(((var(--pointer-y, 50%)) * 0.5) + 25%),
+      hsl(0, 0%, 95%) 20%,
+      var(--card-primary, hsl(175, 100%, 50%)) 130%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      hsl(0,0%,10%) 0%, hsl(0,0%,10%) var(--barwidth),
+      hsl(0,0%,25%) var(--barwidth), hsl(0,0%,25%) calc(var(--barwidth) * 2),
+      hsl(0,0%,40%) calc(var(--barwidth) * 2), hsl(0,0%,40%) calc(var(--barwidth) * 3),
+      hsl(0,0%,50%) calc(var(--barwidth) * 3), hsl(0,0%,50%) calc(var(--barwidth) * 4),
+      hsl(0,0%,40%) calc(var(--barwidth) * 4), hsl(0,0%,40%) calc(var(--barwidth) * 5),
+      hsl(0,0%,25%) calc(var(--barwidth) * 5), hsl(0,0%,25%) calc(var(--barwidth) * 6),
+      hsl(0,0%,10%) calc(var(--barwidth) * 6), hsl(0,0%,10%) calc(var(--barwidth) * 7)
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      hsl(0,0%,10%) 0%, hsl(0,0%,10%) var(--barwidth),
+      hsl(0,0%,25%) var(--barwidth), hsl(0,0%,25%) calc(var(--barwidth) * 2),
+      hsl(0,0%,40%) calc(var(--barwidth) * 2), hsl(0,0%,40%) calc(var(--barwidth) * 3),
+      hsl(0,0%,50%) calc(var(--barwidth) * 3), hsl(0,0%,50%) calc(var(--barwidth) * 4),
+      hsl(0,0%,40%) calc(var(--barwidth) * 4), hsl(0,0%,40%) calc(var(--barwidth) * 5),
+      hsl(0,0%,25%) calc(var(--barwidth) * 5), hsl(0,0%,25%) calc(var(--barwidth) * 6),
+      hsl(0,0%,10%) calc(var(--barwidth) * 6), hsl(0,0%,10%) calc(var(--barwidth) * 7)
+    );
+  background-size: cover, 210% 210%, 210% 210%;
+  background-position:
+    center,
+    calc(((var(--background-x, 50%) - 50%) * 1.5) + 50%) calc(((var(--background-y, 50%) - 50%) * 1.5) + 50%),
+    calc(((var(--background-x, 50%) - 50%) * 1.5) + 50%) calc(((var(--background-y, 50%) - 50%) * 1.5) + 50%);
+  background-blend-mode: exclusion, darken, color-dodge;
+  filter: brightness(0.5) contrast(2) saturate(1.75);
+  mix-blend-mode: color-dodge;
+}
+
+.card-effect-radiant .card-shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --space: 200px;
+  background-image:
+    repeating-linear-gradient(
+      55deg,
+      hsl(3, 95%, 85%) calc(var(--space) * 1),
+      hsl(207, 100%, 84%) calc(var(--space) * 2),
+      hsl(29, 100%, 85%) calc(var(--space) * 3),
+      hsl(160, 100%, 86%) calc(var(--space) * 4),
+      hsl(309, 94%, 87%) calc(var(--space) * 5),
+      hsl(188, 95%, 85%) calc(var(--space) * 6),
+      hsl(3, 95%, 85%) calc(var(--space) * 7)
+    );
+  background-size: 400% 100%;
+  background-position: calc(((var(--background-x, 50%) - 50%) * -2.5) + 50%) calc(((var(--background-y, 50%) - 50%) * -2.5) + 50%);
+  filter: brightness(0.3) contrast(1.5) saturate(1);
+  mix-blend-mode: color-dodge;
+  background-blend-mode: hard-light;
+  opacity: 0.5;
+}
+
+.card-effect-radiant .card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--glitter),
+    radial-gradient(
+      farthest-corner ellipse at calc(((var(--pointer-x, 50%)) * 0.5) + 25%) calc(((var(--pointer-y, 50%)) * 0.5) + 25%),
+      hsla(0, 0%, 58%, 0.8) 10%,
+      hsla(0, 0%, 20%, 0.9) 20%,
+      hsla(0, 0%, 20%, 0.5) 50%
+    );
+  background-position: center;
+  background-size: var(--glittersize) var(--glittersize), 350% 350%;
+  background-blend-mode: color-dodge;
+  mix-blend-mode: overlay;
+  filter: brightness(0.66) contrast(2) saturate(0.5);
+}
+
+.card-effect-radiant .card-glare {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsla(0, 0%, 100%, 0.07) 0%,
+    hsl(0, 0%, 25%) 110%
+  );
+  filter: brightness(1) contrast(1.5);
+  mix-blend-mode: hard-light;
+  opacity: 0.2;
+}
+
+/* ----------------------------------------
+   RAINBOW EFFECT - Glittery pastel
+   ---------------------------------------- */
+.card-effect-rainbow .card-shine {
+  --r-clr-1: hsl(0, 57%, 45%);
+  --r-clr-2: hsl(40, 53%, 47%);
+  --r-clr-3: hsl(90, 60%, 43%);
+  --r-clr-4: hsl(180, 60%, 43%);
+  --r-clr-5: hsl(210, 57%, 47%);
+  --r-clr-6: hsl(280, 55%, 39%);
+
+  background-image:
+    linear-gradient(-45deg, var(--r-clr-1), var(--r-clr-4)),
+    var(--glitter),
+    linear-gradient(
+      -30deg,
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1)
+    );
+  background-blend-mode: luminosity, soft-light;
+  background-size:
+    200% 200%,
+    var(--glittersize) var(--glittersize),
+    400% 400%;
+  background-position:
+    calc(25% + (50% * var(--pointer-from-left, 0.5))) calc(25% + (50% * var(--pointer-from-top, 0.5))),
+    center center,
+    calc(25% + (var(--pointer-x, 50%) / 2)) calc(25% + (var(--pointer-y, 50%) / 2));
+  filter: brightness(calc((var(--pointer-from-center, 0) * 0.25) + 0.6)) contrast(2.2) saturate(0.75);
+  mix-blend-mode: color-dodge;
+}
+
+.card-effect-rainbow .card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--glitter),
+    linear-gradient(
+      -60deg,
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6),
+      var(--r-clr-1)
+    );
+  background-blend-mode: soft-light;
+  background-size: var(--glittersize) var(--glittersize), 400% 400%;
+  background-position: center center, var(--pointer-x, 50%) var(--pointer-y, 50%);
+  filter: brightness(calc((var(--pointer-from-center, 0) * 0.3) + 0.55)) contrast(2) saturate(1);
+  mix-blend-mode: color-dodge;
+}
+
+.card-effect-rainbow .card-glare {
+  background-image: radial-gradient(
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsl(0, 0%, 80%),
+    hsla(187, 10%, 85%, 0.25) 30%,
+    hsl(197, 6%, 25%) 120%
+  );
+  filter: brightness(0.9) contrast(1.75);
+  opacity: calc(var(--pointer-from-center, 0) * 0.9);
+  mix-blend-mode: hard-light;
+}

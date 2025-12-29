@@ -1,0 +1,117 @@
+/* ============================================
+   STICKER STYLES - Position, Resume, Asterisks
+   ============================================ */
+
+/* Position sticker base */
+.position-sticker {
+  position: absolute;
+  bottom: 20px;
+  right: 12px;
+  width: 70px;
+  height: 70px;
+  z-index: 6;
+  transform: rotate(5deg);
+}
+
+/* Medal sticker (gold/silver/bronze) - PNG images */
+.medal-sticker {
+  background: transparent;
+  width: auto;
+  height: auto;
+  transform: none;
+  filter: none;
+}
+
+.medal-sticker .medal-img {
+  width: 80px;
+  height: auto;
+}
+
+/* Regular position stickers (circle, diamond, baseball) */
+.reg-sticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sticker-primary);
+  border: 3px solid white;
+}
+
+.reg-sticker.circle {
+  border-radius: 50%;
+}
+
+.reg-sticker.diamond {
+  width: 58px;
+  height: 58px;
+  border-radius: 4px;
+  transform: rotate(45deg);
+}
+
+.reg-sticker.diamond .sticker-content {
+  transform: rotate(-45deg);
+}
+
+.reg-sticker.baseball {
+  border-radius: 50%;
+}
+
+.reg-number {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: var(--sticker-text);
+}
+
+.reg-number .rank-hash {
+  font-size: 0.6em;
+  margin-right: 1px;
+}
+
+/* ============================================
+   RESUME STICKER - Top Right
+   ============================================ */
+
+.resume-sticker {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  z-index: 6;
+}
+
+.resume-sticker.barstool {
+  background: linear-gradient(180deg, #fff 0%, #e0e0e0 100%);
+  padding: 1px;
+}
+
+.resume-sticker .barstool-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ============================================
+   ASTERISK STICKERS - Stacked Bottom Left
+   ============================================ */
+
+.asterisk-sticker {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 100%, rgba(224, 224, 224, 0.9) 100%);
+  border: 2px solid rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  z-index: 6;
+}

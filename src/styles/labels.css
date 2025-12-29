@@ -1,0 +1,71 @@
+/* ============================================
+   LABEL STYLES - Name and Time Labels
+   ============================================ */
+
+/* Name label - top left positioned container */
+.name-label {
+  position: absolute;
+  top: 8px;
+  left: -4px;
+  z-index: 4;
+  max-width: 85%;
+}
+
+.name-label .name-label-parallelogram-pop {
+  position: absolute;
+  left: -12px;
+  z-index: 4;
+}
+
+/* Time label - bottom right positioned container */
+.time-label {
+  position: absolute;
+  bottom: 8px;
+  right: -8px;
+  z-index: 5;
+}
+
+.time-label .time-label-parallelogram-pop {
+  position: absolute;
+  bottom: 2px;
+  right: -12px;
+  z-index: 5;
+}
+
+/* ============================================
+   HOTDOG LABEL STYLES - Pill/Stadium Shape
+   ============================================ */
+
+.name-label-hotdog {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  top: 8px;
+}
+
+.time-label-hotdog {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  bottom: 8px;
+}
+
+.hotdog-shape {
+  width: 252px;
+  height: 50px;
+  border-radius: 999px;
+  border: 2px solid;
+  box-shadow: 4px 4px 0 0 var(--hotdog-shadow, black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotdog-shape .label-text {
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+}

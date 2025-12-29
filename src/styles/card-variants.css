@@ -1,0 +1,207 @@
+/* ============================================
+   CARD VARIANT SYSTEM
+   Dynamic theming based on CSS custom properties
+   ============================================ */
+
+/* Base variant card uses CSS variables for colors */
+.variant-card {
+  --card-primary: #c41e3a;
+  --card-secondary: #8b1528;
+  --card-border: #c41e3a;
+  --card-text: #ffffff;
+  --card-name-bg: #c41e3a;
+  --sticker-primary: #1e8c7a;
+  --sticker-secondary: #156b5d;
+}
+
+.variant-card .trading-card {
+  background: var(--card-primary);
+  box-shadow:
+    inset 0 0 0 4px var(--card-border-color, white),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   FRAME SHAPES
+   ============================================ */
+
+/* Inset border over photo (full-bleed frames only, front side) */
+.frame-rectangle .card-front .trading-card::after,
+.frame-cutout .card-front .trading-card::after {
+  content: '';
+  position: absolute;
+  inset: 28px 12px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 4px;
+}
+
+/* Rounded - rounded corners on photo, matches base border inset */
+.frame-rounded .photo-container {
+  inset: 28px 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.frame-rounded .trading-card::before {
+  border-radius: 10px;
+}
+
+/* Inset - photo with colored border margin, matches base border inset */
+.frame-inset .photo-container {
+  inset: 28px 12px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.frame-inset .card-background {
+  background: linear-gradient(180deg, var(--card-primary) 0%, var(--card-secondary) 100%);
+}
+
+/* Parallelogram - for use with parallelogram labels, matches base border inset */
+.frame-parallelogram .photo-container {
+  inset: 28px 12px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.frame-parallelogram .card-background {
+  background: linear-gradient(180deg, var(--card-primary) 0%, var(--card-secondary) 100%);
+}
+
+/* ============================================
+   NAME POSITIONS
+   Label components handle their own styling.
+   These classes only control positioning.
+   ============================================ */
+
+/* All name positions use the same top-left placement now */
+/* The parallelogram label components handle their own appearance */
+
+/* ============================================
+   BORDER STYLES
+   All cards use thin solid border with standardized colors
+   (white 60%, black 20%, transparent 20%)
+   ============================================ */
+
+/* All border style variants use the same inset border */
+.border-solid .trading-card,
+.border-double .trading-card,
+.border-gradient .trading-card,
+.border-none .trading-card {
+  box-shadow:
+    inset 0 0 0 4px var(--card-border-color, white),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   BADGE STYLES
+   ============================================ */
+
+/* Medal badge - uses existing medal styles (no override needed) */
+
+/* Circle badge - uses complementary sticker colors (not for medal stickers) */
+.badge-circle .position-sticker:not(.medal-sticker) {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--sticker-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-circle .position-sticker .badge-inner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--sticker-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+/* Square badge - uses complementary sticker colors (not for medal stickers) */
+.badge-square .position-sticker:not(.medal-sticker) {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: var(--sticker-primary);
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(5deg);
+}
+
+.badge-square .badge-content {
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: monospace;
+}
+
+/* ============================================
+   FONT STYLES (Google Fonts from Figma)
+   Using higher specificity to override base .name-label
+   ============================================ */
+
+/* Display - Caprasimo (default) */
+.variant-card.font-display .name-label {
+  font-family: 'Caprasimo', Georgia, serif;
+  font-size: 1.1rem;
+}
+
+/* Script - Playball (cursive) */
+.variant-card.font-script .name-label {
+  font-family: 'Playball', cursive;
+  font-size: 1.4rem;
+  font-style: normal;
+}
+
+/* Bold sans - Bowlby One */
+.variant-card.font-bold-sans .name-label {
+  font-family: 'Bowlby One', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Retro - Inter Black */
+.variant-card.font-retro .name-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   SPORT ICON POSITIONS
+   ============================================ */
+
+.sport-icon {
+  position: absolute;
+  z-index: 15;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.sport-icon.top-right {
+  top: 12px;
+  right: 12px;
+}
+
+.sport-icon.top-left {
+  top: 12px;
+  left: 12px;
+}
+
+.sport-icon.bottom-left {
+  bottom: 60px;
+  left: 12px;
+}

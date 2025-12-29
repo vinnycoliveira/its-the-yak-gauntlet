@@ -1,0 +1,235 @@
+/* ============================================
+   LABEL COMPONENT STYLES
+   Shared styles for name and time label components
+   ============================================ */
+
+/* ============================================
+   Parallelogram Pop: Slanted parallelogram with layered drop shadow
+   ============================================ */
+
+.name-label-parallelogram-pop,
+.time-label-parallelogram-pop {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 120px;
+  height: 40px;
+}
+
+.name-label-parallelogram-pop .label-bg,
+.time-label-parallelogram-pop .label-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.name-label-parallelogram-pop .label-content,
+.time-label-parallelogram-pop .label-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px 0 24px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Name label specific */
+.name-label-parallelogram-pop .label-content {
+  padding: 8px 40px 12px;
+}
+
+.name-label-parallelogram-pop .label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.name-label-parallelogram-pop .label-icon img,
+.name-label-parallelogram-pop .label-icon svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.name-label-parallelogram-pop .label-text {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Time label specific */
+.time-label-parallelogram-pop .label-content {
+  justify-content: center;
+  padding: 8px 100px 8px 24px;
+}
+
+.time-label-parallelogram-pop .label-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  letter-spacing: -0.5px;
+}
+
+.time-label-parallelogram-pop .label-rank {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #666;
+  margin-left: 8px;
+}
+
+/* ============================================
+   Parallelogram Pop Size Variants
+   ============================================ */
+
+.name-label-parallelogram-pop.small,
+.time-label-parallelogram-pop.small {
+  height: 32px;
+  min-width: 100px;
+}
+
+.name-label-parallelogram-pop.small .label-text {
+  font-size: 0.9rem;
+}
+
+.time-label-parallelogram-pop.small .label-text {
+  font-size: 1rem;
+}
+
+.name-label-parallelogram-pop.large,
+.time-label-parallelogram-pop.large {
+  height: 48px;
+  min-width: 150px;
+}
+
+.name-label-parallelogram-pop.large .label-text {
+  font-size: 1.3rem;
+}
+
+.time-label-parallelogram-pop.large .label-text {
+  font-size: 1.4rem;
+}
+
+/* ============================================
+   Ribbon Pop: Arrow/chevron with drop shadow
+   ============================================ */
+
+.name-label-ribbon-pop,
+.time-label-ribbon-pop {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 120px;
+  height: 40px;
+}
+
+.name-label-ribbon-pop .label-bg,
+.time-label-ribbon-pop .label-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.name-label-ribbon-pop .label-content,
+.time-label-ribbon-pop .label-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Name label ribbon-pop specific */
+.name-label-ribbon-pop .label-content {
+  padding: 8px 32px 10px 16px;
+}
+
+.name-label-ribbon-pop .label-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.name-label-ribbon-pop .label-icon img,
+.name-label-ribbon-pop .label-icon svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.name-label-ribbon-pop .label-text {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Time label ribbon-pop specific */
+.time-label-ribbon-pop .label-content {
+  justify-content: center;
+  padding: 8px 100px 8px 32px;
+}
+
+.time-label-ribbon-pop .label-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  letter-spacing: -0.5px;
+}
+
+.time-label-ribbon-pop .label-rank {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #666;
+  margin-left: 8px;
+}
+
+/* ============================================
+   Ribbon Pop Size Variants
+   ============================================ */
+
+.name-label-ribbon-pop.small,
+.time-label-ribbon-pop.small {
+  height: 32px;
+  min-width: 100px;
+}
+
+.name-label-ribbon-pop.small .label-text {
+  font-size: 0.9rem;
+}
+
+.time-label-ribbon-pop.small .label-text {
+  font-size: 1rem;
+}
+
+.name-label-ribbon-pop.large,
+.time-label-ribbon-pop.large {
+  height: 48px;
+  min-width: 150px;
+}
+
+.name-label-ribbon-pop.large .label-text {
+  font-size: 1.3rem;
+}
+
+.time-label-ribbon-pop.large .label-text {
+  font-size: 1.4rem;
+}

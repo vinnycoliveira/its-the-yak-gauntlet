@@ -1,0 +1,218 @@
+/* ============================================
+   APP LAYOUT - Sidebar + Main Content
+   ============================================ */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-yak-navy, #1a1f2e);
+}
+
+/* Sidebar - fixed left panel */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(180deg, #1a1f2e 0%, #141820 100%);
+  border-right: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 24px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 50; /* Below hovered cards (z-index: 100) */
+}
+
+.sidebar-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scroll to top FAB - anchored to sidebar bottom edge */
+.scroll-to-top-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 280px; /* Sidebar width */
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-yak-gold, #d4af37);
+  color: var(--color-yak-navy, #1a1f2e);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+}
+
+.scroll-to-top-fab.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top-fab:hover {
+  transform: translateX(-50%) scale(1.1);
+  background: #e5c349;
+}
+
+.scroll-to-top-fab:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+/* Responsive: move FAB on mobile when sidebar collapses */
+@media (max-width: 768px) {
+  .scroll-to-top-fab {
+    left: auto;
+    right: 24px;
+    transform: none;
+  }
+
+  .scroll-to-top-fab:hover {
+    transform: scale(1.1);
+  }
+
+  .scroll-to-top-fab:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Main content - scrollable card grid */
+.main-content {
+  flex: 1;
+  padding: 24px 48px; /* Extra horizontal space for cards to expand on hover */
+  overflow: visible; /* Allow hovered cards to extend past boundaries */
+  position: relative;
+  z-index: 1;
+}
+
+/* Card grid - centered with consistent gutters */
+.card-grid {
+  max-width: calc((350px * 4) + (24px * 3)); /* 4 cards at max-width + 3 gaps */
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Card grid item wrapper - handles z-index for proper hover stacking */
+.card-grid-item {
+  position: relative;
+  z-index: 1;
+  padding: 12px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  --edge-shift: 0px;
+  transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), var(--card-y, 0px));
+  transition: transform 0.3s ease;
+}
+
+/* Only apply hover transform when card is NOT flipped */
+.card-grid-item:not(:has(.flipped)):hover {
+  z-index: 200; /* Above all other cards and sidebar */
+  transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), calc(var(--card-y, 0px) + var(--edge-shift)));
+}
+
+/* Keep grid item elevated when card is flipped (no transform change on hover) */
+.card-grid-item:has(.flipped) {
+  z-index: 200;
+}
+
+/* Edge detection: shift cards away from viewport edges on hover */
+/* First row cards shift down, last row cards shift up */
+/* Order matters: last-row rules first, then first-row rules override */
+/* This ensures cards in BOTH first and last row shift DOWN (top edge is more critical) */
+
+/* Default: 1 column - first and last items */
+.card-grid-item:hover {
+  --edge-shift: 0px;
+}
+.card-grid-item:last-child:hover {
+  --edge-shift: -32px;
+}
+.card-grid-item:first-child:hover {
+  --edge-shift: 32px;
+}
+
+/* 2 columns (sm: 640px+) */
+@media (min-width: 640px) {
+  .card-grid-item:hover {
+    --edge-shift: 0px;
+  }
+  .card-grid-item:nth-last-child(-n+2):hover {
+    --edge-shift: -32px;
+  }
+  .card-grid-item:nth-child(-n+2):hover {
+    --edge-shift: 32px;
+  }
+}
+
+/* 3 columns (lg: 1024px+) */
+@media (min-width: 1024px) {
+  .card-grid-item:hover {
+    --edge-shift: 0px;
+  }
+  .card-grid-item:nth-last-child(-n+3):hover {
+    --edge-shift: -32px;
+  }
+  .card-grid-item:nth-child(-n+3):hover {
+    --edge-shift: 32px;
+  }
+}
+
+/* 4 columns (xl: 1280px+) */
+@media (min-width: 1280px) {
+  .card-grid-item:hover {
+    --edge-shift: 0px;
+  }
+  .card-grid-item:nth-last-child(-n+4):hover {
+    --edge-shift: -32px;
+  }
+  .card-grid-item:nth-child(-n+4):hover {
+    --edge-shift: 32px;
+  }
+}
+
+/* Responsive: collapse sidebar on mobile */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 16px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .card-grid {
+    padding: 0 16px;
+  }
+}
+
+/* Digital Numbers font - using a monospace fallback styled to look digital */
+@font-face {
+  font-family: 'Digital Numbers';
+  src: local('DSEG7 Classic'), local('Digital-7'), local('Segment7');
+  font-display: swap;
+}

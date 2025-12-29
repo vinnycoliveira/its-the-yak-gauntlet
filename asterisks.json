@@ -1,0 +1,167 @@
+[
+  {
+    "Flag": "🪜 7-foot Division",
+    "Description": "Competitor is ≥ 7 foot 00 inches tall.",
+    "Associated Runs": "3:27.44"
+  },
+  {
+    "Flag": "🥅 Backup Goalie",
+    "Description": "Contestant shot on 2nd string goalie",
+    "Associated Runs": "1:35.54, 2:31.57, 2:58.86, 5:46.45"
+  },
+  {
+    "Flag": "🧀 Belly-full-of-Cheeze Its",
+    "Description": "Contestant completed the Gauntlet after eating 411 Cheezits\n",
+    "Associated Runs": "2:51.00, 3:03.12, 3:18.77"
+  },
+  {
+    "Flag": "👟 Big Shoes",
+    "Description": "Contestant wore comically large shoes on their little baby feet\n\n",
+    "Associated Runs": "1:48.29"
+  },
+  {
+    "Flag": "🧑‍🦯 Blindfolded",
+    "Description": "Contestant was blindfolded",
+    "Associated Runs": "8:38.00"
+  },
+  {
+    "Flag": "🧙 Caped",
+    "Description": "Contestant wore a wizard or superhero cape during their run.",
+    "Associated Runs": "4:20.95, 5:46.74"
+  },
+  {
+    "Flag": "💬 Chat Represent",
+    "Description": "Contestant is a regular member of the YouTube Chat",
+    "Associated Runs": "2:42.80"
+  },
+  {
+    "Flag": "🎄 Christmas Special",
+    "Description": "Contestant ran during a Yak Christmas Special",
+    "Associated Runs": "7:15.41"
+  },
+  {
+    "Flag": "🔫 Democrat/Sopranos-Fan",
+    "Description": "Contestant is an out-and-proud Democrat AND fan of the HBO series, \"The Sopranos\"",
+    "Associated Runs": "6:14.79"
+  },
+  {
+    "Flag": "🚫 DNF",
+    "Description": "Contestant did not finish",
+    "Associated Runs": "3:18.77, 3:34.57"
+  },
+  {
+    "Flag": "✌️ Duos",
+    "Description": "Contestants performed run as a pair",
+    "Associated Runs": "2:33.17"
+  },
+  {
+    "Flag": "☝️ Inagural",
+    "Description": "The first ever running of the Yak Gauntlet",
+    "Associated Runs": "2:11.64, 2:19.60, 2:59.79, 3:00.68, 3:16.14, 3:19.84, 3:27.42, 3:31.54, 3:49.72, 3:52.87, 5:27.32, 6:18.60"
+  },
+  {
+    "Flag": "🤕 Injury",
+    "Description": "Contestant suffered and/or inflicted an injury over the course of their run",
+    "Associated Runs": "2:47.42"
+  },
+  {
+    "Flag": "🦁 Lion",
+    "Description": "Contestant was dressed as a Lion",
+    "Associated Runs": "2:15.57"
+  },
+  {
+    "Flag": "💋 Mackenzie Fella",
+    "Description": "Contestant was a competitor for Mackenzie's heart",
+    "Associated Runs": "2:48.02, 3:18.31, 4:45.32, 5:06.99"
+  },
+  {
+    "Flag": "🦋 Moth",
+    "Description": "Contestant was dressed as a moth",
+    "Associated Runs": "4:46.00"
+  },
+  {
+    "Flag": "🏴‍☠️ Pirate",
+    "Description": "Contestant was dressed as a pirate; wore an eye-patch",
+    "Associated Runs": "1:51.51, 3:11.14, 4:02.89, 4:47.27"
+  },
+  {
+    "Flag": "🏃🏻‍♂️‍➡️ Post-Marathon",
+    "Description": "Contestant ran Yak Gauntlet after running a full marathon",
+    "Associated Runs": "9:29.15"
+  },
+  {
+    "Flag": "🥇 PR",
+    "Description": "Contestant's Personal Record",
+    "Associated Runs": "1:26.08, 1:29.32, 1:35.04, 1:35.54, 1:47.67, 1:48.38, 1:54.20, 1:55.20, 1:57.89, 2:16.17, 2:21.15, 2:23.37, 2:31.57, 2:43.52, 3:03.76, 3:04.85, 3:16.14, 3:19.30, 3:21.92, 3:29.73, 3:31.54, 3:33.78, 3:48.13, 4:06.55, 4:30.37, 5:03.34, 5:08.61, 1:48.78"
+  },
+  {
+    "Flag": "⚰️ RIP",
+    "Description": "Contestant ran dead-last Yak Gauntlet time",
+    "Associated Runs": "9:30.02"
+  },
+  {
+    "Flag": "💎 Rocks-in-pockets",
+    "Description": "Contestant performed run with rocks in pockets\n",
+    "Associated Runs": "2:58.86"
+  },
+  {
+    "Flag": "🧓 Senior Division",
+    "Description": "Contestant\n is old AF",
+    "Associated Runs": "3:29.05, 4:07.74, 6:39.83"
+  },
+  {
+    "Flag": "👡 Slides",
+    "Description": "Contestant was wearing slides/sandals/flip-flops",
+    "Associated Runs": "2:58.86, 6:39.17"
+  },
+  {
+    "Flag": "🚬 Smoking",
+    "Description": "Contestant was smoking while completing their run",
+    "Associated Runs": "3:19.30"
+  },
+  {
+    "Flag": "🎯 Sponsored",
+    "Description": "",
+    "Associated Runs": "2:09.48"
+  },
+  {
+    "Flag": "🎩 Sports Jacket",
+    "Description": "Contestant wore a sports jacket",
+    "Associated Runs": "2:08.50, 2:30.46"
+  },
+  {
+    "Flag": "🤝 Team Run",
+    "Description": "Multiple contestant ran relay-race-style",
+    "Associated Runs": "1:51.51"
+  },
+  {
+    "Flag": "🎽 Topless",
+    "Description": "Contestant completed run without their top on.",
+    "Associated Runs": "5:29.52, 6:09.49"
+  },
+  {
+    "Flag": "🗑️ Trash Can",
+    "Description": "Contestant was dressed as a recycling-bin/trash-can for Earth Day.",
+    "Associated Runs": "2:57.72"
+  },
+  {
+    "Flag": "🏳️ Unofficial",
+    "Description": "Unofficial running of the Yak Gauntlet",
+    "Associated Runs": "2:09.48, 3:49.72"
+  },
+  {
+    "Flag": "🏆 WR",
+    "Description": "World Record",
+    "Associated Runs": "1:26.08"
+  },
+  {
+    "Flag": "🐰 Bunny Costume",
+    "Description": "Contestant was dressed as the Easter Bunny for their run.",
+    "Associated Runs": "2:55.91"
+  },
+  {
+    "Flag": "🌎 Planet Fitness",
+    "Description": "",
+    "Associated Runs": "2:10.02"
+  }
+]

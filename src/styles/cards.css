@@ -1,0 +1,373 @@
+/* ============================================
+   BASE CARD STYLES - Flip, Container, Shape
+   ============================================ */
+
+/* Custom card flip styles */
+.card-container {
+  perspective: 1000px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Only raise z-index on hover when NOT flipped */
+.card-container:not(.flipped):hover {
+  z-index: 200; /* Above sidebar (z-index: 50) */
+  position: relative;
+}
+
+/* Flipped card doesn't need pointer cursor on container - buttons have their own */
+.card-container.flipped {
+  cursor: default;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.15s ease-out, scale 0.2s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* Scale up on hover when NOT flipped */
+/* But NOT for cards inside PSA cases - the case handles scaling */
+.card-container:not(.flipped):not(.in-psa-case):hover .card-inner {
+  scale: 1.2;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+/* Keep card enlarged when flipped - don't shrink on mouse leave */
+/* But NOT for cards inside PSA cases - the case handles scaling */
+.card-container.flipped:not(.in-psa-case) .card-inner {
+  scale: 1.2;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+/* Slower transition when flipping - both transform and scale animate together */
+.card-container.flipping .card-inner {
+  transition: transform 0.5s ease-in-out, scale 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+}
+
+.card-front {
+  overflow: hidden;
+}
+
+.card-back {
+  overflow: visible;
+  transform: rotateY(180deg);
+  transform-style: flat;
+}
+
+/* Trading card shape with corner cutouts */
+.trading-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 4px var(--card-border-color, white),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Only front trading card needs overflow hidden for photo clipping */
+.card-front .trading-card {
+  overflow: hidden;
+}
+
+/* Back trading card needs overflow visible for button clicks */
+.card-back .trading-card {
+  overflow: visible;
+}
+
+/* Inset border layer under photo (applies to front only) */
+.card-front .trading-card::before {
+  content: '';
+  position: absolute;
+  inset: 28px 12px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+/* Pattern overlay - sits above background, uses blend mode */
+.card-pattern-overlay {
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: luminosity;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Photo container - sits above bottom border, below top border */
+/* Default: full bleed (inset 0) */
+.photo-container {
+  inset: 0;
+  z-index: 2;
+}
+
+/* Team photo grid - for team runs with multiple competitors */
+.team-photo-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 2px;
+}
+
+.team-photo-cell {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 2 team members - side by side */
+.team-photo-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* 3 team members - 2 on top, 1 on bottom centered */
+.team-photo-grid-3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.team-photo-grid-3 .team-photo-cell:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+/* 4 team members - 2x2 grid */
+.team-photo-grid-4 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* 5+ team members - 3 columns */
+.team-photo-grid-5,
+.team-photo-grid-6 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* Gloss sheen overlay */
+.card-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.14) 100%
+  );
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.trading-card:hover .card-sheen {
+  opacity: 1;
+}
+
+/* ============================================
+   CARD BACK STYLES
+   ============================================ */
+
+.card-back-content {
+  background: linear-gradient(180deg, var(--card-primary) 0%, var(--card-secondary) 100%);
+  height: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  position: relative;
+  transform-style: flat;
+}
+
+/* Card back pattern overlay - sits on top of gradient background */
+.card-back-pattern {
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: luminosity;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 8px;
+}
+
+/* Inset container - soft gray background */
+.card-back-inset {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 6px;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header - two column layout */
+.card-back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 8px;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.header-name {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header-rank {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.header-time {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+.header-date {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Header divider line */
+.header-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 10px;
+}
+
+/* Stats table - no dividers */
+.card-back-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.stat-label {
+  opacity: 0.8;
+}
+
+.stat-value {
+  font-weight: 600;
+}
+
+/* Flags display */
+.flags-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.flags-value {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.flag-tag {
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* Links section - must be above all card overlays for reliable clicking */
+.card-back-links {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.card-back-link {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: filter 0.15s, box-shadow 0.15s;
+  position: relative;
+  z-index: 101;
+  pointer-events: auto;
+}
+
+.card-back-link:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.card-back-link:active {
+  filter: brightness(0.95);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-back-link.youtube {
+  background: var(--sticker-primary);
+  color: white;
+}
+
+.card-back-link.trivia {
+  background: var(--card-secondary);
+  color: white;
+}
+
+.card-back-link.flip-back {
+  background: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Click hint */
+.card-back-hint {
+  text-align: center;
+  padding-top: 6px;
+  font-size: 0.65rem;
+  opacity: 0.5;
+}

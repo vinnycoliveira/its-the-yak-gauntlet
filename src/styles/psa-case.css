@@ -1,0 +1,429 @@
+/* ============================================
+   PSA GRADING CASE - Crystal Clear Plastic
+   For cards with Personal Record (PR) asterisk
+   ============================================ */
+
+/* Outer case container - creates the depth */
+.psa-case {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* Reset button styles */
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  /* Slightly larger than card to show case edges */
+  padding: 0;
+  background: transparent;
+  border-radius: 8px;
+  /* Allow transforms on hover */
+  transition: transform 0.2s ease;
+}
+
+/* Scale up on hover when NOT flipped */
+.psa-case:not(.flipped):hover {
+  transform: scale(1.08);
+  z-index: 200;
+}
+
+/* Keep PSA case enlarged when flipped - don't shrink on mouse leave */
+.psa-case.flipped {
+  transform: scale(1.08);
+  z-index: 200;
+}
+
+/* Transform wrapper - handles all 3D transforms including flip */
+.psa-case-transform {
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: 8px;
+}
+
+/* Outer frame - thickest border (on front face) */
+.psa-case-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid;
+  border-color:
+    rgba(183, 181, 190, 0.9)
+    rgba(170, 169, 172, 0.9)
+    rgba(140, 138, 145, 0.9)
+    rgba(183, 181, 190, 0.9);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 30;
+  /* Inner highlight for 3D effect */
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Middle frame layer (on front face) */
+.psa-case-front::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(170, 169, 172, 0.7);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow: inset 0.5px 0.5px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Inner card holder - recessed area */
+.psa-case-inner {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid rgba(170, 169, 172, 0.5);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0.5px 0.5px 0 rgba(255, 255, 255, 0.5);
+  /* No overflow hidden - breaks button click events with 3D transforms */
+}
+
+/* Card inside PSA case - fills the inner holder */
+.psa-case-inner .card-container.in-psa-case {
+  width: 100%;
+}
+
+/* When showing only the back of card in PSA case back face */
+.psa-back-static {
+  position: relative;
+  transform: none;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
+
+/* ============================================
+   PSA LABEL - Red Bordered Header
+   ============================================ */
+
+.psa-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  background: white;
+  border: 3px solid #e95460;
+  border-radius: 2px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.psa-label-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.psa-label-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  color: black;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+
+/* Barcode - simple CSS representation */
+.psa-barcode {
+  display: flex;
+  gap: 1px;
+  height: 6px;
+  align-items: flex-end;
+}
+
+.psa-barcode-bar {
+  background: black;
+  width: 1px;
+}
+
+.psa-barcode-bar.thin { height: 4px; }
+.psa-barcode-bar.medium { height: 5px; }
+.psa-barcode-bar.thick { height: 6px; }
+
+.psa-label-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.psa-label-date {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.psa-label-grade {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  color: black;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   PSA CASE OVERLAY - Crystal Clear Reflections
+   ============================================ */
+
+.psa-case-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  border-radius: 8px;
+  /* Diagonal shine across the case */
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.12) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+}
+
+/* Top edge reflection */
+.psa-case-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  border-radius: 2px;
+}
+
+/* Side edge subtle gradient */
+.psa-case-overlay::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+}
+
+/* Hover effect - slight scale and enhanced shine */
+.psa-case:hover .psa-case-overlay {
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.18) 43%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.18) 57%,
+    transparent 62%,
+    transparent 100%
+  );
+}
+
+/* Card grid item adjustments for PSA cases */
+.card-grid-item.has-psa-case {
+  /* PSA case adds height, adjust spacing */
+  padding: 8px;
+}
+
+/* Disable the normal card hover effects when inside PSA case - case handles everything */
+.psa-case .card-container {
+  /* Remove perspective - case handles it */
+  perspective: none;
+}
+
+.psa-case .card-container:hover .card-inner {
+  /* Disable card's own scale on hover */
+  scale: 1;
+  box-shadow: none;
+}
+
+/* Card inside case should not have its own hover z-index */
+.psa-case .card-container:hover {
+  z-index: auto;
+}
+
+/* Enable holofoil effects when PSA case is hovered (not just card) */
+.psa-case:hover .card-shine,
+.psa-case:hover .card-glare {
+  opacity: 1;
+}
+
+/* Ensure card holofoil effects render above PSA case overlay */
+.psa-case .card-shine,
+.psa-case .card-glare {
+  z-index: 25;
+}
+
+/* Lower PSA overlay z-index so it doesn't cover card effects */
+.psa-case .psa-case-overlay {
+  z-index: 15;
+}
+
+/* PSA case 3D depth layers for more realistic plastic look */
+.psa-case-depth {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(170, 169, 172, 0.4);
+  border-radius: 4px;
+  pointer-events: none;
+  box-shadow: inset 0.5px 0.5px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   PSA CASE FLIP - Front/Back Faces and Edges
+   ============================================ */
+
+/* Front face - contains the card and label */
+.psa-case-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 66px 12px 12px 12px; /* 56px for label + 8px gap between label and card */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  /* Multiple layered borders for depth */
+  box-shadow:
+    /* Outer edge highlight */
+    inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.15),
+    /* Case thickness shadow */
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Back face - rotated 180deg, transparent like front to show card back */
+.psa-case-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 66px 12px 12px 12px; /* Same as front */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  /* Match front face border styling */
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Outer frame on back face */
+.psa-case-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid;
+  border-color:
+    rgba(183, 181, 190, 0.9)
+    rgba(170, 169, 172, 0.9)
+    rgba(140, 138, 145, 0.9)
+    rgba(183, 181, 190, 0.9);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Middle frame layer on back face */
+.psa-case-back::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(170, 169, 172, 0.7);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow: inset 0.5px 0.5px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Edge/thickness elements - visible during flip rotation */
+/* Quarter inch depth = ~6px at scale */
+.psa-case-edge {
+  position: absolute;
+  /* Inset from top/bottom to avoid sharp corners */
+  top: 8px;
+  bottom: 8px;
+  width: 6px;
+  height: auto;
+  /* Edges should be visible from both sides during flip */
+  backface-visibility: visible;
+  /* Gradient to simulate plastic edge with depth */
+  background: linear-gradient(
+    180deg,
+    rgba(200, 198, 205, 1) 0%,
+    rgba(170, 169, 172, 1) 20%,
+    rgba(150, 148, 155, 1) 50%,
+    rgba(170, 169, 172, 1) 80%,
+    rgba(140, 138, 145, 1) 100%
+  );
+  /* Rounded ends to match case corners */
+  border-radius: 4px;
+}
+
+.psa-case-edge-left {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+}
+
+.psa-case-edge-right {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(90deg);
+}

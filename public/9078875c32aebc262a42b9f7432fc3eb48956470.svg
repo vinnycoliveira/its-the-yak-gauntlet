@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 82.0229 82.023" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="diamond">
+<path d="M0 8.02296L10.8105 3.75856C53.1186 -12.9306 94.9535 28.9043 78.2644 71.2124L74 82.023H0V8.02296Z" fill="var(--fill-0, #152032)"/>
+<path d="M0 8.02296L10.8105 3.75856C53.1186 -12.9306 94.9535 28.9043 78.2644 71.2124L74 82.023H0V8.02296Z" fill="url(#paint0_linear_10_207)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_10_207" x1="61.1031" y1="20.9198" x2="71.2869" y2="116.939" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FBFBFB"/>
+<stop offset="1" stop-color="#D6D6D6"/>
+</linearGradient>
+</defs>
+</svg>
