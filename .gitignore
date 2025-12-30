@@ -34,8 +34,8 @@ logs/
 # Python scraping scripts (local dev only)
 *.py
 
-# Scraped data files
-yakle-*.json
+# Scraped data files (at root only, not in src/data/)
+/yakle-*.json
 
 # Misc generated files
 "prompts":*

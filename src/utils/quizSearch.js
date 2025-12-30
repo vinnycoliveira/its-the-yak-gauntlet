@@ -1,5 +1,5 @@
 // Quiz search utility using the scraped Yakle data
-import quizData from '../../yakle-quizzes-full.json'
+import quizData from '../data/yakle-quizzes-full.json'
 
 export function searchQuizzes(query) {
   if (!query || query.trim().length < 2) return []
