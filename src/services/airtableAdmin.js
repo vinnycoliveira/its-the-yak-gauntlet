@@ -15,6 +15,55 @@ const headers = {
 }
 
 /**
+ * Fetch the Resume field options from Airtable's schema
+ * This ensures we always have the current list of resume types
+ */
+export async function fetchResumeOptions() {
+  const response = await fetch(
+    `https://api.airtable.com/v0/meta/bases/${AIRTABLE_BASE_ID}/tables`,
+    { headers }
+  )
+
+  const data = await response.json()
+
+  if (data.error) {
+    throw new Error(data.error.message)
+  }
+
+  // Find the Competitors table
+  const competitorsTable = data.tables.find(t => t.id === TABLES.COMPETITORS)
+  if (!competitorsTable) {
+    throw new Error('Competitors table not found')
+  }
+
+  // Find the Resumé field
+  const resumeField = competitorsTable.fields.find(f => f.name === 'Resumé')
+  if (!resumeField || resumeField.type !== 'multipleSelects') {
+    throw new Error('Resumé field not found or not a multiple select')
+  }
+
+  // Extract the options with their IDs and names
+  return resumeField.options.choices.map(choice => {
+    // Parse emoji from the name (format is "emoji Name")
+    const match = choice.name.match(/^(.+?)\s+(.+)$/)
+    if (match) {
+      return {
+        id: choice.id,
+        emoji: match[1],
+        name: match[2],
+        fullName: choice.name
+      }
+    }
+    return {
+      id: choice.id,
+      emoji: '',
+      name: choice.name,
+      fullName: choice.name
+    }
+  })
+}
+
+/**
  * Fetch all competitors from Airtable
  */
 export async function fetchCompetitors() {
@@ -23,7 +72,6 @@ export async function fetchCompetitors() {
 
   do {
     const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLES.COMPETITORS}`)
-    url.searchParams.set('fields[]', 'Competitor')
     if (offset) url.searchParams.set('offset', offset)
 
     const response = await fetch(url, { headers })
@@ -55,18 +103,19 @@ export async function fetchAsterisks() {
 
   do {
     const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLES.ASTERISKS}`)
-    url.searchParams.set('fields[]', 'Flag')
-    url.searchParams.set('fields[]', 'Description')
     if (offset) url.searchParams.set('offset', offset)
 
     const response = await fetch(url, { headers })
     const data = await response.json()
+
+    console.log('Asterisks API response:', data)
 
     if (data.error) {
       throw new Error(data.error.message)
     }
 
     for (const record of data.records) {
+      console.log('Asterisk record:', record.id, record.fields)
       records.push({
         id: record.id,
         flag: record.fields.Flag || '',
@@ -81,35 +130,50 @@ export async function fetchAsterisks() {
 }
 
 /**
- * Create a new competitor
+ * Upload image to tmpfiles.org (free file hosting with CORS support)
+ * Files are stored for 1 hour minimum, which is enough for Airtable to fetch
  */
-export async function createCompetitor(name, resumeItems = []) {
+export async function uploadImage(blob) {
+  const formData = new FormData()
+  formData.append('file', blob, 'competitor.jpg')
+
+  const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+    method: 'POST',
+    body: formData
+  })
+
+  const data = await response.json()
+
+  if (data.status !== 'success') {
+    console.error('tmpfiles.org upload failed:', data)
+    throw new Error(data.message || 'Failed to upload image')
+  }
+
+  // tmpfiles returns URL like https://tmpfiles.org/12345/file.jpg
+  // We need to convert it to direct link: https://tmpfiles.org/dl/12345/file.jpg
+  const url = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/')
+  return url
+}
+
+/**
+ * Create a new competitor
+ * @param {string} name - Competitor name
+ * @param {string[]} resumeFullNames - Array of full resume names (e.g., "🏈 Football")
+ * @param {string|null} imageUrl - Optional image URL
+ */
+export async function createCompetitor(name, resumeFullNames = [], imageUrl = null) {
   const fields = {
     'Competitor': name
   }
 
-  // Resume items should be the display names like "🏈 Football"
-  if (resumeItems.length > 0) {
-    // Map plain names to emoji versions
-    const resumeMap = {
-      'Barstool': '\u{1F171}\uFE0F Barstool',
-      'Comedian': '\u{1F602} Comedian',
-      'Entertainer': '\u{1F3AD} Entertainer',
-      'Friends & Family': '\u{1F46B} Friends & Family',
-      'Intern': '\u{1F3C3} Intern',
-      'Musician': '\u{1F3B6} Musician',
-      'Stoolie': '\u{1F37B} Stoolie',
-      'Basketball': '\u{1F3C0} Basketball',
-      'Football': '\u{1F3C8} Football',
-      'Fighter': '\u{1F94A} Fighter',
-      'Baseball': '\u26BE\uFE0F Baseball',
-      'Golf': '\u26F3\uFE0F Golf',
-      'Tennis': '\u{1F3BE} Tennis',
-      'Lacrosse': '\u{1F94D} Lacrosse',
-      'Wrestling': '\u{1F93C} Wrestling',
-      'Racing': '\u{1F3C1} Racing',
-    }
-    fields['Resumé'] = resumeItems.map(r => resumeMap[r] || r)
+  // Resume items should be the full display names like "🏈 Football"
+  if (resumeFullNames.length > 0) {
+    fields['Resumé'] = resumeFullNames
+  }
+
+  // Add image as attachment
+  if (imageUrl) {
+    fields['Pic'] = [{ url: imageUrl }]
   }
 
   const response = await fetch(

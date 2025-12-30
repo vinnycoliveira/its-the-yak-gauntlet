@@ -4,29 +4,11 @@ import { extractYouTubeInfo } from '../../utils/youtubeHelpers'
 import {
   fetchCompetitors,
   fetchAsterisks,
+  fetchResumeOptions,
   createRun,
   createCompetitor,
   createAsterisk
 } from '../../services/airtableAdmin'
-
-const RESUME_OPTIONS = [
-  { id: 'seleze84mTqBKOIvy', name: 'Barstool', emoji: '\u{1F171}\uFE0F' },
-  { id: 'selvH7bTMM5s9jYhi', name: 'Comedian', emoji: '\u{1F602}' },
-  { id: 'selxrb0PaTGdriYxB', name: 'Entertainer', emoji: '\u{1F3AD}' },
-  { id: 'selHeJbX0YeFanpSi', name: 'Friends & Family', emoji: '\u{1F46B}' },
-  { id: 'selxoRm9YvovKJfKS', name: 'Intern', emoji: '\u{1F3C3}' },
-  { id: 'selb3ERanp7VpkAZf', name: 'Musician', emoji: '\u{1F3B6}' },
-  { id: 'selkf5cesxzdmsGNS', name: 'Stoolie', emoji: '\u{1F37B}' },
-  { id: 'selKkPvFZKgTXV9se', name: 'Basketball', emoji: '\u{1F3C0}' },
-  { id: 'selZhE6kyOhoCMoei', name: 'Football', emoji: '\u{1F3C8}' },
-  { id: 'selBHFo9Mz2AbucEW', name: 'Fighter', emoji: '\u{1F94A}' },
-  { id: 'selklkhyIjOBY3Jsr', name: 'Baseball', emoji: '\u26BE\uFE0F' },
-  { id: 'sel1iSpqmyNtCp0bk', name: 'Golf', emoji: '\u26F3\uFE0F' },
-  { id: 'selU3PwEmP8iy5Lhz', name: 'Tennis', emoji: '\u{1F3BE}' },
-  { id: 'selNvqbMF6mG9wBfg', name: 'Lacrosse', emoji: '\u{1F94D}' },
-  { id: 'selRMYZdlXBP9pY5R', name: 'Wrestling', emoji: '\u{1F93C}' },
-  { id: 'selEYl7xOUNI4sZcL', name: 'Racing', emoji: '\u{1F3C1}' },
-]
 
 export default function AdminAddRunForm() {
   // Form state
@@ -36,6 +18,7 @@ export default function AdminAddRunForm() {
   const [selectedCompetitor, setSelectedCompetitor] = useState(null)
   const [isNewCompetitor, setIsNewCompetitor] = useState(false)
   const [newCompetitorResume, setNewCompetitorResume] = useState([])
+  const [newCompetitorImageUrl, setNewCompetitorImageUrl] = useState('')
   const [time, setTime] = useState('')
   const [date, setDate] = useState('')
   const [quizClue, setQuizClue] = useState('')
@@ -44,25 +27,27 @@ export default function AdminAddRunForm() {
   const [selectedAsterisks, setSelectedAsterisks] = useState([])
   const [newAsteriskFlag, setNewAsteriskFlag] = useState('')
   const [newAsteriskDesc, setNewAsteriskDesc] = useState('')
-  const [notes, setNotes] = useState('')
 
   // Data state
   const [competitors, setCompetitors] = useState([])
   const [asterisks, setAsterisks] = useState([])
+  const [resumeOptions, setResumeOptions] = useState([])
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [submitResult, setSubmitResult] = useState(null)
 
-  // Load competitors and asterisks on mount
+  // Load competitors, asterisks, and resume options on mount
   useEffect(() => {
     async function loadData() {
       try {
-        const [comps, asts] = await Promise.all([
+        const [comps, asts, resumes] = await Promise.all([
           fetchCompetitors(),
-          fetchAsterisks()
+          fetchAsterisks(),
+          fetchResumeOptions()
         ])
         setCompetitors(comps)
         setAsterisks(asts)
+        setResumeOptions(resumes)
       } catch (err) {
         console.error('Failed to load data:', err)
       } finally {
@@ -114,7 +99,8 @@ export default function AdminAddRunForm() {
 
       // Create new competitor if needed
       if (isNewCompetitor && competitorSearch.trim()) {
-        const newComp = await createCompetitor(competitorSearch.trim(), newCompetitorResume)
+        const imageUrl = newCompetitorImageUrl.trim() || null
+        const newComp = await createCompetitor(competitorSearch.trim(), newCompetitorResume, imageUrl)
         competitorId = newComp.id
         // Add to local list
         setCompetitors(prev => [...prev, { id: newComp.id, name: competitorSearch.trim() }])
@@ -156,6 +142,7 @@ export default function AdminAddRunForm() {
       setSelectedCompetitor(null)
       setIsNewCompetitor(false)
       setNewCompetitorResume([])
+      setNewCompetitorImageUrl('')
       setTime('')
       setDate('')
       setQuizClue('')
@@ -164,7 +151,6 @@ export default function AdminAddRunForm() {
       setSelectedAsterisks([])
       setNewAsteriskFlag('')
       setNewAsteriskDesc('')
-      setNotes('')
 
     } catch (err) {
       console.error('Submit error:', err)
@@ -184,12 +170,6 @@ export default function AdminAddRunForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {submitResult && (
-        <div className={`p-4 rounded-lg ${submitResult.success ? 'bg-green-900/50 text-green-300' : 'bg-red-900/50 text-red-300'}`}>
-          {submitResult.message}
-        </div>
-      )}
-
       {/* YouTube URL */}
       <div className="bg-yak-navy-light rounded-xl p-6 border border-gray-700">
         <h2 className="text-lg font-semibold text-yak-gold mb-4">Video Source</h2>
@@ -229,9 +209,9 @@ export default function AdminAddRunForm() {
               className="w-full px-4 py-3 bg-yak-navy border border-gray-600 rounded-lg text-white focus:border-yak-gold focus:outline-none"
             />
 
-            {/* Dropdown results */}
-            {filteredCompetitors.length > 0 && !selectedCompetitor && (
-              <div className="mt-2 bg-yak-navy border border-gray-600 rounded-lg overflow-hidden">
+            {/* Dropdown results - show when typing and not yet selected */}
+            {competitorSearch.trim() && !selectedCompetitor && !isNewCompetitor && (
+              <div className="mt-2 bg-yak-navy border border-gray-600 rounded-lg overflow-hidden max-h-64 overflow-y-auto">
                 {filteredCompetitors.map(comp => (
                   <button
                     key={comp.id}
@@ -252,7 +232,7 @@ export default function AdminAddRunForm() {
                     setIsNewCompetitor(true)
                     setSelectedCompetitor(null)
                   }}
-                  className="w-full px-4 py-2 text-left text-yak-gold hover:bg-yak-gold/20 transition-colors border-t border-gray-600"
+                  className={`w-full px-4 py-2 text-left text-yak-gold hover:bg-yak-gold/20 transition-colors ${filteredCompetitors.length > 0 ? 'border-t border-gray-600' : ''}`}
                 >
                   + Create new: "{competitorSearch}"
                 </button>
@@ -271,33 +251,64 @@ export default function AdminAddRunForm() {
           {/* Resume selection for new competitor */}
           {isNewCompetitor && (
             <div>
-              <label className="block text-sm text-gray-300 mb-2">Resume (select all that apply)</label>
+              <p className="block text-sm text-gray-300 mb-2">
+                Resume <span className="text-red-400">*</span> (select all that apply)
+              </p>
+              {newCompetitorResume.length === 0 && (
+                <p className="text-red-400 text-xs mb-2">At least one resume type is required</p>
+              )}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {RESUME_OPTIONS.map(opt => (
+                {resumeOptions.map(opt => (
                   <label
                     key={opt.id}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
-                      newCompetitorResume.includes(opt.name)
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors text-white ${
+                      newCompetitorResume.includes(opt.fullName)
                         ? 'bg-yak-gold/30 border-yak-gold'
                         : 'bg-yak-navy border-gray-600'
                     } border`}
                   >
                     <input
                       type="checkbox"
-                      checked={newCompetitorResume.includes(opt.name)}
+                      checked={newCompetitorResume.includes(opt.fullName)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setNewCompetitorResume(prev => [...prev, opt.name])
+                          setNewCompetitorResume(prev => [...prev, opt.fullName])
                         } else {
-                          setNewCompetitorResume(prev => prev.filter(r => r !== opt.name))
+                          setNewCompetitorResume(prev => prev.filter(r => r !== opt.fullName))
                         }
                       }}
                       className="sr-only"
                     />
-                    <span>{opt.emoji} {opt.name}</span>
+                    <span>{opt.fullName}</span>
                   </label>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Photo URL for new competitor */}
+          {isNewCompetitor && (
+            <div>
+              <p className="block text-sm text-gray-300 mb-2">Photo URL (optional)</p>
+              <input
+                type="url"
+                value={newCompetitorImageUrl}
+                onChange={(e) => setNewCompetitorImageUrl(e.target.value)}
+                placeholder="https://example.com/photo.jpg"
+                className="w-full px-4 py-3 bg-yak-navy border border-gray-600 rounded-lg text-white focus:border-yak-gold focus:outline-none"
+              />
+              {newCompetitorImageUrl && (
+                <div className="mt-3 flex items-center gap-3">
+                  <img
+                    src={newCompetitorImageUrl}
+                    alt="Preview"
+                    className="w-12 h-12 rounded-full object-cover border border-gray-600"
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                    onLoad={(e) => { e.currentTarget.style.display = 'block' }}
+                  />
+                  <span className="text-sm text-gray-400">Preview</span>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -387,6 +398,9 @@ export default function AdminAddRunForm() {
         <h2 className="text-lg font-semibold text-yak-gold mb-4">Asterisks</h2>
         <div className="space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+            {asterisks.length === 0 && (
+              <p className="text-gray-400 col-span-3">Loading asterisks...</p>
+            )}
             {asterisks.map(ast => (
               <label
                 key={ast.id}
@@ -420,7 +434,7 @@ export default function AdminAddRunForm() {
                 type="text"
                 value={newAsteriskFlag}
                 onChange={(e) => setNewAsteriskFlag(e.target.value)}
-                placeholder="Flag (e.g. Blindfolded)"
+                placeholder="Label (e.g. Blindfolded)"
                 className="px-4 py-2 bg-yak-navy border border-gray-600 rounded-lg text-white focus:border-yak-gold focus:outline-none text-sm"
               />
               <input
@@ -435,26 +449,30 @@ export default function AdminAddRunForm() {
         </div>
       </div>
 
-      {/* Notes */}
-      <div className="bg-yak-navy-light rounded-xl p-6 border border-gray-700">
-        <h2 className="text-lg font-semibold text-yak-gold mb-4">Notes (Optional)</h2>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Any additional notes about this run..."
-          rows={3}
-          className="w-full px-4 py-3 bg-yak-navy border border-gray-600 rounded-lg text-white focus:border-yak-gold focus:outline-none resize-none"
-        />
-      </div>
-
       {/* Submit */}
       <button
         type="submit"
-        disabled={submitting || !time || (!selectedCompetitor && !isNewCompetitor)}
+        disabled={
+          submitting ||
+          !time ||
+          (!selectedCompetitor && !isNewCompetitor) ||
+          (isNewCompetitor && newCompetitorResume.length === 0)
+        }
         className="w-full py-4 bg-yak-gold text-yak-navy font-bold text-lg rounded-xl hover:bg-yak-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submitting ? 'Adding Run...' : 'Add Run to Leaderboard'}
       </button>
+
+      {/* Result message */}
+      {submitResult && (
+        <div className={`p-4 rounded-xl text-center ${
+          submitResult.success
+            ? 'bg-green-900/30 border border-green-700 text-green-400'
+            : 'bg-red-900/30 border border-red-700 text-red-400'
+        }`}>
+          {submitResult.message}
+        </div>
+      )}
     </form>
   )
 }
