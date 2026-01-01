@@ -48,10 +48,6 @@ export default function PSAGradeCase({ name, date, children }) {
     // Don't flip if clicking on interactive elements inside the card
     if (e.target.closest('.card-back-link, a, button')) return
 
-    // Only flip from front to back on general click
-    // Back to front is handled by the dedicated flip-back button
-    if (isFlipped) return
-
     // Don't flip if already flipping (prevents double-flip)
     if (isFlipping) return
 
@@ -59,7 +55,7 @@ export default function PSAGradeCase({ name, date, children }) {
     setTilt({ x: 0, y: 0 })
     // Enable slower flip transition
     setIsFlipping(true)
-    setIsFlipped(true)
+    setIsFlipped(!isFlipped)
     // Remove flipping class after animation completes
     setTimeout(() => setIsFlipping(false), 500)
   }

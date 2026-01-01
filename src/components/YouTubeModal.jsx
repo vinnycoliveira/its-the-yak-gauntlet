@@ -13,8 +13,9 @@ export default function YouTubeModal({ url, onClose }) {
   const timecode = parsed?.timecode
 
   // Build embed URL with autoplay and start time
+  // playsinline=1 is required for iOS Safari to play inline instead of fullscreen
   const embedUrl = videoId
-    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0${timecode ? `&start=${timecode}` : ''}`
+    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1${timecode ? `&start=${timecode}` : ''}`
     : null
 
   const handleEscape = useCallback(
@@ -94,13 +95,15 @@ export default function YouTubeModal({ url, onClose }) {
         <iframe
           src={embedUrl}
           title="YouTube video player"
+          loading="eager"
+          referrerPolicy="no-referrer-when-downgrade"
           style={{
             width: '100%',
             height: '100%',
             borderRadius: '8px',
             border: 'none',
           }}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
           allowFullScreen
         />
       </div>

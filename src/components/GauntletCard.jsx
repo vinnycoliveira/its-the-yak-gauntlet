@@ -57,10 +57,6 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
     // If in PSA case, let the case handle click
     if (inPSACase) return
 
-    // Only flip from front to back on card click
-    // Back to front is handled by dedicated flip button
-    if (isFlipped) return
-
     // Don't flip if already flipping (prevents double-flip)
     if (isFlipping) return
 
@@ -68,7 +64,7 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
     setTilt({ x: 0, y: 0 })
     // Enable slower flip transition
     setIsFlipping(true)
-    setIsFlipped(true)
+    setIsFlipped(!isFlipped)
     // Remove flipping class after animation completes
     setTimeout(() => setIsFlipping(false), 500)
   }

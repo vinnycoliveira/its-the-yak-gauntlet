@@ -1,6 +1,5 @@
 import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
 import { isLightColor } from '../utils/cardVariants'
 import YouTubeModal from './YouTubeModal'
 
@@ -12,26 +11,20 @@ import YouTubeModal from './YouTubeModal'
 export default function CardBackButtons({
   youtubeUrl,
   triviaUrl,
-  onFlipBack,     // callback to flip card back
   isVisible,      // true when card is flipped and not animating
   containerRef,   // ref to placeholder div in card-back-links
-  cardRef,        // ref to card container for FAB positioning
   stickerColor,   // primary sticker color for Watch Run button
   cardSecondary,  // secondary card color for Trivia Quiz button
   rotation = 0,   // card rotation in degrees to match grid item rotation
-  fabOffsetX = 8, // horizontal offset from card edge (default 8px)
-  fabOffsetY = 8, // vertical offset from card edge (default 8px)
   inPSACase = false, // whether card is in PSA case (affects button sizing)
 }) {
   const [position, setPosition] = useState(null)
-  const [cardPosition, setCardPosition] = useState(null)
   const [hoveredButton, setHoveredButton] = useState(null)
   const [showYouTubeModal, setShowYouTubeModal] = useState(false)
 
   useEffect(() => {
     if (!isVisible || !containerRef?.current) {
       setPosition(null)
-      setCardPosition(null)
       return
     }
 
@@ -44,17 +37,6 @@ export default function CardBackButtons({
         width: rect.width,
         height: rect.height,
       })
-
-      // FAB always positioned relative to the card container (not PSA case)
-      if (cardRef?.current) {
-        const cardRect = cardRef.current.getBoundingClientRect()
-        setCardPosition({
-          top: cardRect.top + window.scrollY,
-          left: cardRect.left + window.scrollX,
-          width: cardRect.width,
-          height: cardRect.height,
-        })
-      }
     }
 
     updatePosition()
@@ -71,7 +53,7 @@ export default function CardBackButtons({
       window.removeEventListener('resize', updatePosition)
       clearInterval(interval)
     }
-  }, [isVisible, containerRef, cardRef])
+  }, [isVisible, containerRef])
 
   // Don't render if not visible or position not calculated
   if (!isVisible || !position) return null
@@ -101,9 +83,6 @@ export default function CardBackButtons({
     justifyContent: 'center',
     maxHeight: inPSACase ? '40px' : '40px',
   }
-
-  // FAB size
-  const fabSize = 48
 
   const buttons = (
     <div
@@ -165,50 +144,9 @@ export default function CardBackButtons({
     </div>
   )
 
-  // Flip back FAB - positioned at bottom-right corner of card
-  const flipFab = cardPosition && (
-    <button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation()
-        onFlipBack?.(e)
-      }}
-      onMouseEnter={() => setHoveredButton('flip')}
-      onMouseLeave={() => setHoveredButton(null)}
-      style={{
-        position: 'absolute',
-        top: cardPosition.top + cardPosition.height - fabSize - fabOffsetY,
-        left: cardPosition.left + cardPosition.width - fabSize - fabOffsetX,
-        width: fabSize,
-        height: fabSize,
-        borderRadius: '50%',
-        background: hoveredButton === 'flip' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.85)',
-        color: 'rgba(0, 0, 0, 0.7)',
-        border: '1px solid rgba(0, 0, 0, 0.15)',
-        boxShadow: hoveredButton === 'flip'
-          ? '0 4px 12px rgba(0, 0, 0, 0.3)'
-          : '0 2px 8px rgba(0, 0, 0, 0.2)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '18px',
-        fontWeight: 'bold',
-        zIndex: 10000,
-        pointerEvents: 'auto',
-        transition: 'background 0.15s, box-shadow 0.15s, transform 0.15s',
-        transform: hoveredButton === 'flip' ? 'scale(1.1)' : 'scale(1)',
-      }}
-      title="Flip back to front"
-    >
-      <ArrowUturnLeftIcon style={{ width: 20, height: 20 }} />
-    </button>
-  )
-
   return createPortal(
     <>
       {buttons}
-      {flipFab}
       {showYouTubeModal && (
         <YouTubeModal
           url={youtubeUrl}
