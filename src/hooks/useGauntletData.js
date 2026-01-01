@@ -7,26 +7,14 @@ import {
 } from '../utils/dataHelpers'
 
 /**
- * Simple hash function for deterministic random selection
+ * Select photo URL from array by cycling through available photos
+ * Uses the run index for this competitor to ensure sequential cycling
  */
-function hashSeed(seed) {
-  let hash = 0
-  const str = String(seed)
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i)
-    hash = ((hash << 5) - hash) + char
-    hash = hash & hash
-  }
-  return Math.abs(hash)
-}
-
-/**
- * Select a random photo URL from array using deterministic seed
- */
-function selectRandomPhoto(photoUrls, seed) {
+function selectPhotoByIndex(photoUrls, runIndex) {
   if (!photoUrls || photoUrls.length === 0) return null
   if (photoUrls.length === 1) return photoUrls[0]
-  const index = hashSeed(seed) % photoUrls.length
+  // Cycle through photos: run 0 -> photo 0, run 1 -> photo 1, etc.
+  const index = runIndex % photoUrls.length
   return photoUrls[index]
 }
 
@@ -62,6 +50,9 @@ export function useGauntletData() {
           return []
         }
 
+        // Track run index per competitor for photo cycling
+        const competitorRunIndex = {}
+
         // Transform leaderboard runs with enriched data
         const enrichedRuns = leaderboard.map((run) => {
           // Resolve all linked competitor records (supports team runs)
@@ -79,6 +70,13 @@ export function useGauntletData() {
 
           // Use competitor name from lookup, or from the competitor record
           const competitorName = run.competitor || primaryCompetitor.name || ''
+
+          // Track this competitor's run index for photo cycling
+          if (!competitorRunIndex[competitorName]) {
+            competitorRunIndex[competitorName] = 0
+          }
+          const runIndexForPhoto = competitorRunIndex[competitorName]
+          competitorRunIndex[competitorName] += 1
 
           // Resolve asterisk record IDs to actual flag values
           const resolvedAsterisks = resolveAsterisks(run.asterisks)
@@ -98,16 +96,24 @@ export function useGauntletData() {
             worldRecordDuration: run.worldRecordDuration,
             youtubeUrl: run.youtubeUrl,
             triviaUrl: run.triviaUrl,
-            photoUrl: selectRandomPhoto(primaryCompetitor.photoUrls, run.id),
+            photoUrl: selectPhotoByIndex(primaryCompetitor.photoUrls, runIndexForPhoto),
             numRuns: primaryCompetitor.numRuns || 1,
             // Team run support
             isTeamRun,
             teamMembers: isTeamRun
-              ? teamMembers.map((member, index) => ({
-                  ...member,
-                  // Select random photo for each team member using unique seed
-                  photoUrl: selectRandomPhoto(member.photoUrls, `${run.id}-${index}`),
-                }))
+              ? teamMembers.map((member, memberIdx) => {
+                  // Track run index per team member as well
+                  const memberName = member.name || `member-${memberIdx}`
+                  if (!competitorRunIndex[memberName]) {
+                    competitorRunIndex[memberName] = 0
+                  }
+                  const memberRunIndex = competitorRunIndex[memberName]
+                  competitorRunIndex[memberName] += 1
+                  return {
+                    ...member,
+                    photoUrl: selectPhotoByIndex(member.photoUrls, memberRunIndex),
+                  }
+                })
               : null,
           }
         })
