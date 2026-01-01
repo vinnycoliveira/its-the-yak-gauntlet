@@ -2,16 +2,29 @@ import { useState, useEffect } from 'react'
 
 export default function ScrollToTopFab() {
   const [isVisible, setIsVisible] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      // Estimate when 4th row is out of view
-      // Card aspect ratio is 2.5:3.5, so height ≈ 1.4 * width
-      // At 4 columns (xl), cards are roughly 250px wide → ~350px tall
-      // 4 rows × 350px + gaps ≈ 1400px + some buffer
-      // We'll use a threshold that works across breakpoints
+      // Threshold before FAB appears
       const threshold = 1200
-      setIsVisible(window.scrollY > threshold)
+
+      // Calculate total scrollable height
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+      const currentScroll = window.scrollY
+
+      // Show FAB after threshold
+      setIsVisible(currentScroll > threshold)
+
+      // Calculate progress (0 to 1) from threshold to end of page
+      // This determines vertical position of the FAB
+      const scrollableAfterThreshold = scrollHeight - threshold
+      const scrolledAfterThreshold = Math.max(0, currentScroll - threshold)
+      const progress = scrollableAfterThreshold > 0
+        ? Math.min(1, scrolledAfterThreshold / scrollableAfterThreshold)
+        : 0
+
+      setScrollProgress(progress)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -24,11 +37,15 @@ export default function ScrollToTopFab() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  // Calculate vertical position using CSS custom property for smooth GPU-accelerated animation
+  // Progress 0 = near top, Progress 1 = near bottom
+
   return (
     <button
       type="button"
       onClick={scrollToTop}
       className={`scroll-to-top-fab ${isVisible ? 'visible' : ''}`}
+      style={{ '--scroll-progress': scrollProgress }}
       aria-label="Scroll to top"
     >
       <svg

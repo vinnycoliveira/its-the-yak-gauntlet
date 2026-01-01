@@ -30,12 +30,13 @@ async function fetchTable(tableName) {
   return records
 }
 
-function extractPhotoUrl(picField) {
+function extractPhotoUrls(picField) {
   if (!picField || !Array.isArray(picField) || picField.length === 0) {
-    return null
+    return []
   }
   // Airtable API returns attachments as array of objects with url property
-  return picField[0].url
+  // Return all photo URLs, not just the first
+  return picField.map((attachment) => attachment.url).filter(Boolean)
 }
 
 // Format seconds to "M:SS.ss" time string
@@ -98,7 +99,7 @@ export async function fetchCompetitors() {
       const competitor = {
         name: name,
         fullName: record.fields['Full Name'] || name,
-        photoUrl: extractPhotoUrl(record.fields.Pic),
+        photoUrls: extractPhotoUrls(record.fields.Pic),
         numRuns: parseInt(record.fields['Numb. of Runs'], 10) || 1,
         resume: record.fields['Resumé'] || '',
       }

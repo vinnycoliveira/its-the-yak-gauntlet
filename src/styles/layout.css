@@ -36,12 +36,17 @@
   flex-direction: column;
 }
 
-/* Scroll to top FAB - anchored to sidebar bottom edge */
+/* Scroll to top FAB - acts as scroll position indicator along sidebar edge */
 .scroll-to-top-fab {
+  --scroll-progress: 0;
+  --top-offset: 80px;
+  --bottom-offset: 80px;
+  --travel-distance: calc(100vh - var(--top-offset) - var(--bottom-offset));
+
   position: fixed;
-  bottom: 24px;
+  top: var(--top-offset);
   left: 280px; /* Sidebar width */
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(calc(var(--travel-distance) * var(--scroll-progress)));
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -56,7 +61,8 @@
   z-index: 100;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.15s ease-out;
+  will-change: transform;
 }
 
 .scroll-to-top-fab.visible {
@@ -65,12 +71,12 @@
 }
 
 .scroll-to-top-fab:hover {
-  transform: translateX(-50%) scale(1.1);
+  transform: translateX(-50%) translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(1.1);
   background: #e5c349;
 }
 
 .scroll-to-top-fab:active {
-  transform: translateX(-50%) scale(0.95);
+  transform: translateX(-50%) translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(0.95);
 }
 
 /* Responsive: move FAB on mobile when sidebar collapses */
@@ -78,15 +84,15 @@
   .scroll-to-top-fab {
     left: auto;
     right: 24px;
-    transform: none;
+    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress)));
   }
 
   .scroll-to-top-fab:hover {
-    transform: scale(1.1);
+    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(1.1);
   }
 
   .scroll-to-top-fab:active {
-    transform: scale(0.95);
+    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(0.95);
   }
 }
 

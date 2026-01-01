@@ -6,6 +6,30 @@ import {
   getUniqueAsterisks,
 } from '../utils/dataHelpers'
 
+/**
+ * Simple hash function for deterministic random selection
+ */
+function hashSeed(seed) {
+  let hash = 0
+  const str = String(seed)
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = ((hash << 5) - hash) + char
+    hash = hash & hash
+  }
+  return Math.abs(hash)
+}
+
+/**
+ * Select a random photo URL from array using deterministic seed
+ */
+function selectRandomPhoto(photoUrls, seed) {
+  if (!photoUrls || photoUrls.length === 0) return null
+  if (photoUrls.length === 1) return photoUrls[0]
+  const index = hashSeed(seed) % photoUrls.length
+  return photoUrls[index]
+}
+
 export function useGauntletData() {
   const [data, setData] = useState({
     runs: [],
@@ -74,11 +98,17 @@ export function useGauntletData() {
             worldRecordDuration: run.worldRecordDuration,
             youtubeUrl: run.youtubeUrl,
             triviaUrl: run.triviaUrl,
-            photoUrl: primaryCompetitor.photoUrl,
+            photoUrl: selectRandomPhoto(primaryCompetitor.photoUrls, run.id),
             numRuns: primaryCompetitor.numRuns || 1,
             // Team run support
             isTeamRun,
-            teamMembers: isTeamRun ? teamMembers : null,
+            teamMembers: isTeamRun
+              ? teamMembers.map((member, index) => ({
+                  ...member,
+                  // Select random photo for each team member using unique seed
+                  photoUrl: selectRandomPhoto(member.photoUrls, `${run.id}-${index}`),
+                }))
+              : null,
           }
         })
 
