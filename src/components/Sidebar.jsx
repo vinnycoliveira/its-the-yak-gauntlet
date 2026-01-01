@@ -55,7 +55,7 @@ export default function Sidebar({
           THE YAK GAUNTLET
         </h1>
         <p className="mt-1 text-white/70 text-sm">
-          Official Leaderboard & Run Archive
+          Fan-created Leaderboard & Run Archive
         </p>
       </div>
 

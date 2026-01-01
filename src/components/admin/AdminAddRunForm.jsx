@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { searchQuizzes } from '../../utils/quizSearch'
+import { searchQuizzes } from '../../yakle/quizSearch'
 import { extractYouTubeInfo } from '../../utils/youtubeHelpers'
 import {
   fetchCompetitors,

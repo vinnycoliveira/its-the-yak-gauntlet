@@ -7,7 +7,7 @@ export default function Header() {
             THE YAK GAUNTLET
           </h1>
           <p className="mt-2 text-white/70 text-lg">
-            Official Leaderboard & Run Archive
+            Fan-created Leaderboard & Run Archive
           </p>
         </div>
       </div>

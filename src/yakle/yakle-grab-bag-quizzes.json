@@ -1,0 +1,1496 @@
+[
+  {
+    "@type": "Quiz",
+    "name": "KB Trivia",
+    "description": "KB",
+    "url": "https://yakle.io/quiz/kb-trivia-grab-bag-1764085066724",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 9,
+    "timeRequired": "PT1000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 1950402648",
+    "description": "A true test of the average American\u2019s IQ",
+    "url": "https://yakle.io/quiz/yak-grab-bag-1950402648-grab-bag-1763497105956",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 12,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 35",
+    "description": "Yak Grab Bag 35",
+    "url": "https://yakle.io/quiz/yak-grab-bag-35-grab-bag-1763061721014",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Taco Salad 100",
+    "description": "Curatedfor Yak Gauntlet use",
+    "url": "https://yakle.io/quiz/yak-gauntlet-taco-salad-100-grab-bag-1763016318977",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT500S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 34",
+    "description": "Yak Grab Bag 34",
+    "url": "https://yakle.io/quiz/yak-grab-bag-34-grab-bag-1762288905293",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Taco Salad 1",
+    "description": "Yak Gauntlet Grab Bag Quiz - Currated by Taco Markk",
+    "url": "https://yakle.io/quiz/yak-gauntlet-taco-salad-1-grab-bag-1763016065377",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Revel Test",
+    "description": "",
+    "url": "https://yakle.io/quiz/revel-test-grab-bag-1761091747865",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 2,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 33",
+    "description": "Yak Grab Bag 33",
+    "url": "https://yakle.io/quiz/yak-grab-bag-33-grab-bag-1760557524949",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 32",
+    "description": "Yak Grab Bag 32",
+    "url": "https://yakle.io/quiz/yak-grab-bag-32-grab-bag-1760383024264",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yakle for Birthday Party",
+    "description": "Yakle for birthday party",
+    "url": "https://yakle.io/quiz/yakle-for-birthday-party-grab-bag-1760223424940",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 11,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Mac Redemption",
+    "description": "",
+    "url": "https://yakle.io/quiz/mac-redemption-grab-bag-1760148709876",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT100000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 31",
+    "description": "Yak Grab Bag 31",
+    "url": "https://yakle.io/quiz/yak-grab-bag-31-grab-bag-1760358868544",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 30",
+    "description": "Yak Grab Bag 30",
+    "url": "https://yakle.io/quiz/yak-grab-bag-30-grab-bag-1757676989767",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 29",
+    "description": "Yak Grab Bag 29",
+    "url": "https://yakle.io/quiz/yak-grab-bag-29-grab-bag-1757102320689",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "DDNet Insane Maps",
+    "description": "",
+    "url": "https://yakle.io/quiz/ddnet-insane-maps-grab-bag-1755613545473",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 28",
+    "description": "Yak Grab Bag 28",
+    "url": "https://yakle.io/quiz/yak-grab-bag-28-grab-bag-1754591376545",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 27",
+    "description": "Yak Grab Bag 27",
+    "url": "https://yakle.io/quiz/yak-grab-bag-27-grab-bag-1754501137372",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 26",
+    "description": "Yak Grab Bag 26",
+    "url": "https://yakle.io/quiz/yak-grab-bag-26-grab-bag-1754070330325",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT597S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 25",
+    "description": "Yak Grab Bag 25",
+    "url": "https://yakle.io/quiz/yak-grab-bag-25-grab-bag-1753970216309",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 24",
+    "description": "Yak Grab Bag 24",
+    "url": "https://yakle.io/quiz/yak-grab-bag-24-grab-bag-1753894304952",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 23",
+    "description": "Yak Grab Bag 23",
+    "url": "https://yakle.io/quiz/yak-grab-bag-23-grab-bag-1753810506785",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Beer Olympics Quiz #1",
+    "description": "Trivia for drunk people",
+    "url": "https://yakle.io/quiz/beer-olympics-quiz-1-grab-bag-1753487975446",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT60S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 22",
+    "description": "Yak Grab Bag 22",
+    "url": "https://yakle.io/quiz/yak-grab-bag-22-grab-bag-1753208524953",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 21",
+    "description": "Yak Grab Bag 21",
+    "url": "https://yakle.io/quiz/yak-grab-bag-21-grab-bag-1752856869044",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 20",
+    "description": "Yak Grab Bag 20",
+    "url": "https://yakle.io/quiz/yak-grab-bag-20-grab-bag-1752608744894",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 19",
+    "description": "Yak Grab Bag 19",
+    "url": "https://yakle.io/quiz/yak-grab-bag-19-grab-bag-1752177937897",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "A New Untold Story Quiz Part 5 THROWBACK EDITION",
+    "description": "",
+    "url": "https://yakle.io/quiz/a-new-untold-story-quiz-part-5-throwback-edition-grab-bag-1752173594012",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "MLB Zucchini Grab Bag 2",
+    "description": "Only post-WW2",
+    "url": "https://yakle.io/quiz/mlb-zucchini-grab-bag-2-grab-bag-1751285621869",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 6,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "A New Untold Story Quiz Pt 4",
+    "description": "",
+    "url": "https://yakle.io/quiz/a-new-untold-story-quiz-pt-4-grab-bag-1750708476751",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 4,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "MLB Zucchini Grab Bag 1",
+    "description": "Only post-WW2",
+    "url": "https://yakle.io/quiz/mlb-zucchini-grab-bag-1-grab-bag-1750862642643",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 18",
+    "description": "Yak Grab Bag 18",
+    "url": "https://yakle.io/quiz/yak-grab-bag-18-grab-bag-1750178672525",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 17",
+    "description": "Yak Grab Bag 17",
+    "url": "https://yakle.io/quiz/yak-grab-bag-17-grab-bag-1750178150121",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 16",
+    "description": "Yak Grab Bag 16",
+    "url": "https://yakle.io/quiz/yak-grab-bag-16-grab-bag-1763057441853",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Grab Bag 3",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-gauntlet-grab-bag-3-grab-bag-1748631789788",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT3000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Grab Bag",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-gauntlet-grab-bag-grab-bag-1748624077725",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 6,
+    "timeRequired": "PT3000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Grab Bag 2",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-gauntlet-grab-bag-2-grab-bag-1748629503852",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 6,
+    "timeRequired": "PT3000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag_Nico",
+    "description": "Grab bag quiz for the Yak",
+    "url": "https://yakle.io/quiz/yak-grab-bag_nico-grab-bag-1748528847419",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 3,
+    "timeRequired": "PT598S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "CFL Trivia",
+    "description": "Canadian Football League Quiz",
+    "url": "https://yakle.io/quiz/cfl-trivia-grab-bag-1748472999964",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 3,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag Hockey Edition ",
+    "description": "",
+    "url": "https://yakle.io/quiz/grab-bag-hockey-edition-grab-bag-1748271821717",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 9,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak 3.75",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-3.75-grab-bag-1747950250026",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 7,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 15",
+    "description": "Yak Grab Bag 15",
+    "url": "https://yakle.io/quiz/yak-grab-bag-15-grab-bag-1750702798843",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 14",
+    "description": "Yak Grab Bag 14",
+    "url": "https://yakle.io/quiz/yak-grab-bag-14-grab-bag-1747850438653",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag Gender Reveal 1",
+    "description": "Yak Grab Bag Gender Reveal 1",
+    "url": "https://yakle.io/quiz/yak-grab-bag-gender-reveal-1-grab-bag-1747673881557",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 13",
+    "description": "Yak Grab Bag 13",
+    "url": "https://yakle.io/quiz/yak-grab-bag-13-grab-bag-1747419366748",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 12",
+    "description": "Yak Grab Bag 12",
+    "url": "https://yakle.io/quiz/yak-grab-bag-12-grab-bag-1747418967919",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 11",
+    "description": "Yak Grab Bag 11",
+    "url": "https://yakle.io/quiz/yak-grab-bag-11-grab-bag-1747245462926",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 10",
+    "description": "Yak Grab Bag 10",
+    "url": "https://yakle.io/quiz/yak-grab-bag-10-grab-bag-1750702506842",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 9",
+    "description": "Yak Grab Bag 9",
+    "url": "https://yakle.io/quiz/yak-grab-bag-9-grab-bag-1754588490353",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 8",
+    "description": "Yak Grab Bag 8",
+    "url": "https://yakle.io/quiz/yak-grab-bag-8-grab-bag-1747164587568",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag DOOBIE",
+    "description": "Yakle for the Yak, FAMily",
+    "url": "https://yakle.io/quiz/yak-grab-bag-doobie-grab-bag-1746993427451",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag ",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-grab-bag-grab-bag-1746209227874",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 7,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "NHL Team Quiz",
+    "description": "Can you name all 32 NHL Teams in 5 minutes?",
+    "url": "https://yakle.io/quiz/nhl-team-quiz-grab-bag-1746148126001",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 4,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Every city major sport",
+    "description": "",
+    "url": "https://yakle.io/quiz/every-city-major-sport-grab-bag-1746143150532",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 14,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Quiz 2",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-gauntlet-quiz-2-grab-bag-1746130698248",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT100000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Gauntlet Quiz 1",
+    "description": "These are more Yak Gauntlet quizzes to use!",
+    "url": "https://yakle.io/quiz/yak-gauntlet-quiz-1-grab-bag-1746128193813",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT100000S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 7",
+    "description": "Grab Bag Trivia for the Gauntlet",
+    "url": "https://yakle.io/quiz/yak-grab-bag-7-grab-bag-1746124207952",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 6",
+    "description": "Yak Grab Bag 6",
+    "url": "https://yakle.io/quiz/yak-grab-bag-6-grab-bag-1745505818497",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Aussie Grab Bag",
+    "description": "Aussie inspired grab bag",
+    "url": "https://yakle.io/quiz/aussie-grab-bag-grab-bag-1745377772812",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 5",
+    "description": "Yak Grab Bag 5",
+    "url": "https://yakle.io/quiz/yak-grab-bag-5-grab-bag-1745349416845",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 4",
+    "description": "Yak Grab Bag 4",
+    "url": "https://yakle.io/quiz/yak-grab-bag-4-grab-bag-1755023125252",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Baseball History",
+    "description": "All time stat leaders in baseball history",
+    "url": "https://yakle.io/quiz/baseball-history-grab-bag-1745096688977",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 1,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "YAK GRAB BAG 25",
+    "description": "",
+    "url": "https://yakle.io/quiz/yak-grab-bag-25-grab-bag-1744915966439",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 3,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 3",
+    "description": "Yak Grab Bag 3",
+    "url": "https://yakle.io/quiz/yak-grab-bag-3-grab-bag-1744917250729",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "151 Generation I Pokemon",
+    "description": "Name the original 151 Pok\u00e9mon ",
+    "url": "https://yakle.io/quiz/151-generation-i-pokemon-grab-bag-1744815113966",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 0,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "A New Untold Story Quiz Pt 3 RELIGION MODE",
+    "description": "",
+    "url": "https://yakle.io/quiz/a-new-untold-story-quiz-pt-3-religion-mode-grab-bag-1744219726715",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "A New Untold Story Quiz Pt 2",
+    "description": "",
+    "url": "https://yakle.io/quiz/a-new-untold-story-quiz-pt-2-grab-bag-1752173347123",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 9,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "NCAA Men's Basketball Champions",
+    "description": "Can you name the NCAA men's basketball national champions?",
+    "url": "https://yakle.io/quiz/ncaa-mens-basketball-champions-221",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 1,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Masters Winners",
+    "description": "Can you name the golfers who have won the Masters tournament?",
+    "url": "https://yakle.io/quiz/masters-winners-733",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 1,
+    "timeRequired": "PT480S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Dozen Trivia League Highest Scorers 2025",
+    "description": "Can you name the top 25 highest scorers in the Dozen this year? (PPG)",
+    "url": "https://yakle.io/quiz/dozen-trivia-league-highest-scorers-2025-grab-bag-1744043175445",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 1,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "A New Untold Story Quiz",
+    "description": "",
+    "url": "https://yakle.io/quiz/a-new-untold-story-quiz-grab-bag-1744036396031",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Cincinnati Bengals Franchise History",
+    "description": "Test your knowledge of the Bengals' history, players, and fun facts! ",
+    "url": "https://yakle.io/quiz/cincinnati-bengals-franchise-history-grab-bag-sports-1743913819049",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 2,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "2024 College Football Stat Leaders",
+    "description": "Prove you\u2019re a true CFB fan and see if you can match the stats to the stars of the 2024 season!",
+    "url": "https://yakle.io/quiz/2024-college-football-stat-leaders-grab-bag-sports-1743911299587",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 1,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 29",
+    "description": "Grab Bag for the Yak Misc 29",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-29-grab-bag-grab-1744982084281",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 33",
+    "description": "Grab Bag for the Yak Misc 33",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-33-grab-bag-grab-1744982107368",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 37",
+    "description": "Grab Bag for the Yak Misc 37",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-37-grab-bag-grab-1744982134871",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 94",
+    "description": "Grab Bag for the Yak Misc 94",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-94-303",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 61",
+    "description": "Grab Bag for the Yak Misc 61",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-61-870",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 93",
+    "description": "Grab Bag for the Yak Misc 93",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-93-719",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 18",
+    "description": "Grab Bag for the Yak Misc 18",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-18-151",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 114",
+    "description": "Grab Bag for the Yak Misc 114",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-114-346",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 20",
+    "description": "Grab Bag for the Yak Misc 20",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-20-613",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 70",
+    "description": "Grab Bag for the Yak Misc 70",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-70-646",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 11",
+    "description": "Grab Bag for the Yak Misc 11",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-11-860",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 44",
+    "description": "Grab Bag for the Yak Misc 44",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-44-956",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc7",
+    "description": "Grab Bag for the Yak Misc 7",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc7-476",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak - MISC Top Lists 2",
+    "description": "Grab Bag for the Yak - MISC Top Lists 2",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-top-lists-2-261",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 9,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 43",
+    "description": "Grab Bag for the Yak Misc 43",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-43-834",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 90",
+    "description": "Grab Bag for the Yak Misc 90",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-90-246",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 27",
+    "description": "Grab Bag for the Yak Misc 27",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-27-127",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 25",
+    "description": "Grab Bag for the Yak Misc 25",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-25-381",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 34",
+    "description": "Grab Bag for the Yak Misc 34",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-34-555",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 45",
+    "description": "Grab Bag for the Yak Misc 45",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-45-39",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 8",
+    "description": "Grab bag for the Yak Misc8",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-8-323",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 48",
+    "description": "Grab Bag for the Yak Misc 48",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-48-908",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 72",
+    "description": "Grab Bag for the Yak Misc 72",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-72-82",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 12",
+    "description": "Grab Bag for the Yak Misc 12",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-12-123",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 50",
+    "description": "Grab Bag for the Yak Misc 50",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-50-445",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 31",
+    "description": "Grab Bag for the Yak Misc 31",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-31-524",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 10",
+    "description": "Grab bag for the Yak Misc10",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-10-368",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 28",
+    "description": "Grab Bag for the Yak Misc 28",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-28-318",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 30",
+    "description": "Grab Bag for the Yak Misc 30",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-30-317",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 2",
+    "description": "Grab Bag for the Yak Misc 2",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-2-348",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 5",
+    "description": "Grab Bag for the Yak Misc 5",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-5-626",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 92",
+    "description": "Grab Bag for the Yak Misc 92",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-92-855",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 14",
+    "description": "Grab Bag for the Yak Misc 14",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-14-848",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 9",
+    "description": "Grab bag for the Yak Misc 9",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-9-659",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 42",
+    "description": "Grab Bag for the Yak Misc 42",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-42-611",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 39",
+    "description": "Grab Bag for the Yak Misc 39",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-39-2",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 78",
+    "description": "Grab Bag for the Yak Misc 78",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-78-362",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 65",
+    "description": "Grab Bag for the Yak Misc 65",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-65-87",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 103",
+    "description": "Grab Bag for the Yak Misc 103",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-103-705",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 77",
+    "description": "Grab Bag for the Yak Misc 77",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-77-693",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 59",
+    "description": "Grab Bag for the Yak Misc 59",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-59-774",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 47",
+    "description": "Grab Bag for the Yak Misc 47",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-47-325",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 55",
+    "description": "Grab Bag for the Yak Misc 55",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-55-520",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 98",
+    "description": "Grab Bag for the Yak Misc 98",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-98-289",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 60",
+    "description": "Grab Bag for the Yak Misc 60",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-60-895",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 86",
+    "description": "Grab Bag for the Yak Misc 86",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-86-668",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 80",
+    "description": "Grab Bag for the Yak Misc 80",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-80-99",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 67",
+    "description": "Grab Bag for the Yak Misc 67",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-67-771",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 51",
+    "description": "Grab Bag for the Yak Misc 51",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-51-940",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 109",
+    "description": "Grab Bag for the Yak Misc 109",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-109-184",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "MISC Grab Bag for the Yak III",
+    "description": "MISC Grab Bag for the Yak III",
+    "url": "https://yakle.io/quiz/misc-grab-bag-for-the-yak-iii-583",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 97",
+    "description": "Grab Bag for the Yak Misc 97",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-97-849",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 107",
+    "description": "Grab Bag for the Yak Misc 107",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-107-172",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 71",
+    "description": "Grab Bag for the Yak Misc 71",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-71-516",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 106",
+    "description": "Grab Bag for the Yak Misc 106",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-106-840",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 40",
+    "description": "Grab Bag for the Yak Misc 40",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-40-141",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 116",
+    "description": "Grab Bag for the Yak Misc 116",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-116-825",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 73",
+    "description": "Grab Bag for the Yak Misc 73",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-73-577",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 102",
+    "description": "Grab Bag for the Yak Misc 102",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-102-954",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 82",
+    "description": "Grab Bag for the Yak Misc 82",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-82-140",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 41",
+    "description": "Grab Bag for the Yak Misc 41",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-41-386",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 58",
+    "description": "Grab Bag for the Yak Misc 58",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-58-310",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak - MISC Top Lists",
+    "description": "Grab Bag for the Yak - MISC Top Lists",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-top-lists-551",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 4,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 17",
+    "description": "Grab Bag for the Yak Misc 17",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-17-179",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 15",
+    "description": "Grab Bag for the Yak Misc 15",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-15-892",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 69",
+    "description": "Grab Bag for the Yak Misc 69",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-69-grab-bag-grab-1744220462398",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 81",
+    "description": "Grab Bag for the Yak Misc 81",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-81-652",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 110",
+    "description": "Grab Bag for the Yak Misc 110",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-110-grab-bag-grab-1744916588110",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 112",
+    "description": "Grab Bag for the Yak Misc 112",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-112-103",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 79",
+    "description": "Grab Bag for the Yak Misc 79",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-79-822",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 62",
+    "description": "Grab Bag for the Yak Misc 62",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-62-89",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 108",
+    "description": "Grab Bag for the Yak Misc 108",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-108-615",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 66",
+    "description": "Grab Bag for the Yak Misc 66",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-66-727",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 100",
+    "description": "Grab Bag for the Yak Misc 100",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-100-233",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 74",
+    "description": "Grab Bag for the Yak Misc 74",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-74-963",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 84",
+    "description": "Grab Bag for the Yak Misc 84",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-84-556",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 91",
+    "description": "Grab Bag for the Yak Misc 91",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-91-260",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 6",
+    "description": "Grab Bag for the Yak Misc 6",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-6-152",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 83",
+    "description": "Grab Bag for the Yak Misc 83",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-83-418",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Grab Bag for the Yak Misc 13",
+    "description": "Grab Bag for the Yak Misc 13",
+    "url": "https://yakle.io/quiz/grab-bag-for-the-yak-misc-13-569",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak type grab bag ",
+    "description": "Grab bag type game for the Yak ",
+    "url": "https://yakle.io/quiz/yak-type-grab-bag--1743797901063",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT3600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 7",
+    "description": "Yak Grab Bag 7",
+    "url": "https://yakle.io/quiz/yak-grab-bag-7-grab-bag-1747164621164",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Yak Grab Bag 1",
+    "description": "Yak Grab Bag 1",
+    "url": "https://yakle.io/quiz/yak-grab-bag-1-grab-bag-1744981995453",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Chicago Grab Bag",
+    "description": "Random questions about Chicago!",
+    "url": "https://yakle.io/quiz/chicago-grab-bag-grab_bag-1743705019086",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 7,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "2024 Tampa Bay Buccaneers Roster Quiz",
+    "description": "Test your knowledge of the 2024 Tampa Bay Buccaneers roster with questions ranging from 1 to 10 correct answers.",
+    "url": "https://yakle.io/quiz/2024-tampa-bay-buccaneers-roster-quiz-grab_bag-1743704205467",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Random Knowledge Grab Bag",
+    "description": "No theme, no mercy. Each question adds more answers. Think fast, think wide.",
+    "url": "https://yakle.io/quiz/random-knowledge-grab-bag-grab_bag-1743697957188",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "WWE Grab Bag for BFW",
+    "description": "From legends to championships, each question climbs in challenge. Time to test your WWE knowledge!",
+    "url": "https://yakle.io/quiz/wwe-grab-bag-for-bow-grab_bag-1743697347569",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Level-Up Grab Bag",
+    "description": "From quick facts to deep knowledge\u2014each level adds another answer. Can you get all 55?",
+    "url": "https://yakle.io/quiz/level-up-grab-bag-grab_bag-1743697261261",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Progressive Grab Bag Challenge",
+    "description": "Each question gets tougher with more answers. Can you go 10 for 10?",
+    "url": "https://yakle.io/quiz/progressive-grab-bag-challenge-grab_bag-1743697180792",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Stack-Up Grab Bag",
+    "description": "Each question has more correct answers than the last. Start easy and build your way up!",
+    "url": "https://yakle.io/quiz/stack-up-grab-bag-grab_bag-1743697151935",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Tiered Trivia Challenge",
+    "description": "Each question increases in difficulty and number of correct answers. Can you clear all 10?test",
+    "url": "https://yakle.io/quiz/tiered-trivia-challenge-grab-bag-general-knowledge-1744978443675",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 13,
+    "timeRequired": "PT600S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "10-Category Knowledge Challenge",
+    "description": "Test your knowledge across a variety of topics in this grab bag quiz with 10 distinct categories.",
+    "url": "https://yakle.io/quiz/10-category-challenge-1743638401452",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 10,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Comprehensive Knowledge Challenge",
+    "description": "Test your knowledge across a variety of topics in this grab bag quiz.",
+    "url": "https://yakle.io/quiz/comprehensive-knowledge-challenge-1743638219417",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 5,
+    "timeRequired": "PT300S"
+  },
+  {
+    "@type": "Quiz",
+    "name": "Pop Culture Blitz",
+    "description": "Test your knowledge of movies, music, and TV",
+    "url": "https://yakle.io/quiz/pop-culture-blitz-grab_bag-yaklegame",
+    "educationalLevel": "intermediate",
+    "numberOfQuestions": 3,
+    "timeRequired": "PT420S"
+  }
+]
