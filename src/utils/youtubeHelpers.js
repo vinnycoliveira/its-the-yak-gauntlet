@@ -14,7 +14,12 @@ export function parseYouTubeUrl(url) {
 
     // Handle different YouTube URL formats
     if (urlObj.hostname.includes('youtube.com')) {
+      // Standard watch URL: youtube.com/watch?v=VIDEO_ID
       videoId = urlObj.searchParams.get('v')
+      // Live URL: youtube.com/live/VIDEO_ID
+      if (!videoId && urlObj.pathname.startsWith('/live/')) {
+        videoId = urlObj.pathname.split('/')[2]
+      }
       timecode = urlObj.searchParams.get('t')
     } else if (urlObj.hostname.includes('youtu.be')) {
       videoId = urlObj.pathname.slice(1)

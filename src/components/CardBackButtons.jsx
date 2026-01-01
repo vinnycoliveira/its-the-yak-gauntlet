@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
 import { isLightColor } from '../utils/cardVariants'
+import YouTubeModal from './YouTubeModal'
 
 /**
  * Portal-based buttons for card back.
@@ -25,6 +26,7 @@ export default function CardBackButtons({
   const [position, setPosition] = useState(null)
   const [cardPosition, setCardPosition] = useState(null)
   const [hoveredButton, setHoveredButton] = useState(null)
+  const [showYouTubeModal, setShowYouTubeModal] = useState(false)
 
   useEffect(() => {
     if (!isVisible || !containerRef?.current) {
@@ -125,7 +127,7 @@ export default function CardBackButtons({
           type="button"
           onClick={(e) => {
             e.stopPropagation()
-            window.open(youtubeUrl, '_blank', 'noopener,noreferrer')
+            setShowYouTubeModal(true)
           }}
           onMouseEnter={() => setHoveredButton('youtube')}
           onMouseLeave={() => setHoveredButton(null)}
@@ -207,6 +209,12 @@ export default function CardBackButtons({
     <>
       {buttons}
       {flipFab}
+      {showYouTubeModal && (
+        <YouTubeModal
+          url={youtubeUrl}
+          onClose={() => setShowYouTubeModal(false)}
+        />
+      )}
     </>,
     document.body
   )
