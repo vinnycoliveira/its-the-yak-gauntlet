@@ -5,14 +5,23 @@
 /* Custom card flip styles */
 .card-container {
   perspective: 1000px;
+  -webkit-perspective: 1000px;
   position: relative;
   z-index: 1;
+  /* Force GPU layer to prevent mobile 3D issues */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* CSS containment for better performance isolation */
+  contain: layout style;
 }
 
 /* Only raise z-index on hover when NOT flipped */
-.card-container:not(.flipped):hover {
-  z-index: 200; /* Above sidebar (z-index: 50) */
-  position: relative;
+/* Disabled on mobile */
+@media (min-width: 769px) {
+  .card-container:not(.flipped):hover {
+    z-index: 200; /* Above sidebar (z-index: 50) */
+    position: relative;
+  }
 }
 
 /* Flipped card doesn't need pointer cursor on container - buttons have their own */
@@ -26,13 +35,19 @@
   height: 100%;
   transition: transform 0.15s ease-out, scale 0.2s ease-out;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  /* Prevent mobile browsers from flattening 3D during scroll */
+  will-change: transform;
 }
 
 /* Scale up on hover when NOT flipped */
 /* But NOT for cards inside PSA cases - the case handles scaling */
-.card-container:not(.flipped):not(.in-psa-case):hover .card-inner {
-  scale: 1.2;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+/* Disabled on mobile (touch devices) */
+@media (min-width: 769px) {
+  .card-container:not(.flipped):not(.in-psa-case):hover .card-inner {
+    scale: 1.2;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* Keep card enlarged when flipped - don't shrink on mouse leave */
@@ -59,12 +74,18 @@
 
 .card-front {
   overflow: hidden;
+  /* Force GPU layer to prevent mobile backface glitches */
+  -webkit-transform: translateZ(1px);
+  transform: translateZ(1px);
 }
 
 .card-back {
   overflow: visible;
-  transform: rotateY(180deg);
+  /* Include translateZ to force GPU layer and prevent mobile glitches */
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
   transform-style: flat;
+  -webkit-transform-style: flat;
 }
 
 /* Trading card shape with corner cutouts */
@@ -113,6 +134,9 @@
 .photo-container {
   inset: 0;
   z-index: 2;
+  /* Match parent's border-radius so corners clip properly */
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 /* Team photo grid - for team runs with multiple competitors */
@@ -176,8 +200,10 @@
   transition: opacity 0.3s;
 }
 
-.trading-card:hover .card-sheen {
-  opacity: 1;
+@media (min-width: 769px) {
+  .trading-card:hover .card-sheen {
+    opacity: 1;
+  }
 }
 
 /* ============================================
@@ -370,4 +396,52 @@
   padding-top: 6px;
   font-size: 0.65rem;
   opacity: 0.5;
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 768px) {
+  /* Hide gloss sheen overlay on mobile - saves GPU compositing layer */
+  .card-sheen {
+    display: none !important;
+  }
+
+  /* Simplify card box shadows on mobile */
+  .trading-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Hide inset border pseudo-element on mobile */
+  .card-front .trading-card::before {
+    display: none;
+  }
+
+  /* Simplify card inner transitions */
+  .card-inner {
+    transition: transform 0.15s ease-out;
+  }
+
+  /* Disable scale transforms entirely on mobile */
+  .card-container.flipped:not(.in-psa-case) .card-inner {
+    scale: 1;
+    box-shadow: none;
+  }
+
+  /* Use layout/style containment only - paint would clip stickers */
+  .card-container {
+    contain: layout style;
+  }
+
+  /* Simplify pattern overlay on mobile - use normal blend mode instead of luminosity */
+  .card-pattern-overlay {
+    mix-blend-mode: normal;
+    opacity: 0.15;
+  }
+
+  /* Simplify card back pattern on mobile - use normal blend mode */
+  .card-back-pattern {
+    mix-blend-mode: normal;
+    opacity: 0.15;
+  }
 }

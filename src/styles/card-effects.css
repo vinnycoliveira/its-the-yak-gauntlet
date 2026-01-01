@@ -34,8 +34,10 @@
   background-position: 100% 100%;
 }
 
-.glare-tl-br:hover .card-front::before {
-  background-position: 0% 0%;
+@media (min-width: 769px) {
+  .glare-tl-br:hover .card-front::before {
+    background-position: 0% 0%;
+  }
 }
 
 /* Top-right to bottom-left direction */
@@ -54,8 +56,10 @@
   background-position: 0% 100%;
 }
 
-.glare-tr-bl:hover .card-front::before {
-  background-position: 100% 0%;
+@media (min-width: 769px) {
+  .glare-tr-bl:hover .card-front::before {
+    background-position: 100% 0%;
+  }
 }
 
 /* Effect 2: Foil/Holographic Effect */
@@ -80,6 +84,14 @@
   opacity: 0.84;
   mix-blend-mode: overlay;
   animation: foil-shimmer 3s ease-in-out infinite;
+}
+
+/* Disable foil animation on mobile to save GPU */
+@media (max-width: 768px) {
+  .card-effect-foil .card-front::after {
+    animation: none;
+    opacity: 0.5;
+  }
 }
 
 @keyframes foil-shimmer {
@@ -204,10 +216,12 @@
   mix-blend-mode: overlay;
 }
 
-/* Show layers on hover */
-.card-container:hover .card-shine,
-.card-container:hover .card-glare {
-  opacity: 1;
+/* Show layers on hover - disabled on mobile */
+@media (min-width: 769px) {
+  .card-container:hover .card-shine,
+  .card-container:hover .card-glare {
+    opacity: 1;
+  }
 }
 
 /* ----------------------------------------
@@ -443,4 +457,39 @@
   filter: brightness(0.9) contrast(1.75);
   opacity: calc(var(--pointer-from-center, 0) * 0.9);
   mix-blend-mode: hard-light;
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Disable heavy GPU effects to prevent crashes
+   ============================================ */
+@media (max-width: 768px) {
+  /* Hide all shine/glare layers completely on mobile */
+  .card-shine,
+  .card-glare {
+    display: none !important;
+  }
+
+  /* Disable glare effect pseudo-elements */
+  .card-effect-glare .card-front::before {
+    display: none;
+  }
+
+  /* Simplify worn edges effect */
+  .card-effect-worn .trading-card::before,
+  .card-effect-worn .trading-card::after {
+    display: none;
+  }
+
+  /* Simplify embossed effect */
+  .card-effect-embossed .trading-card::before {
+    display: none;
+  }
+
+  /* Disable complex filters on holofoil effects */
+  .card-effect-holo .card-shine,
+  .card-effect-radiant .card-shine,
+  .card-effect-rainbow .card-shine {
+    display: none !important;
+  }
 }

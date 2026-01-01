@@ -1,12 +1,14 @@
 import { extractEmoji, getStickerRotation } from '../../utils/stickerRandomizer'
 
 // Background colors per resume category (contrasting with emoji colors)
+// Note: Keys use base emoji characters without variation selectors (U+FE0F)
+// because extractEmoji() regex captures only the base character
 const RESUME_COLORS = {
-  '⚾️': '#5B9BD5', // Baseball (red ball) -> light blue
-  '⛳️': '#E88B8B', // Golf (green) -> coral pink
+  '⚾': '#C41E3A', // Baseball (red ball) -> royal red
+  '⛳': '#E88B8B', // Golf (green) -> coral pink
   '🍻': '#5E3D7A', // Stoolie (amber beer) -> deep purple
   '🎭': '#2A9D8F', // Entertainer (purple/gold masks) -> teal
-  '🎶': '#1E3A5F', // Musician (orange notes) -> deep navy
+  '🎶': '#87CEEB', // Musician (orange notes) -> light sky blue
   '🎾': '#7B4B94', // Tennis (green/yellow ball) -> purple
   '🏀': '#1B365D', // Basketball (orange) -> navy blue
   '🏁': '#C73E3E', // Racing (black/white flag) -> red

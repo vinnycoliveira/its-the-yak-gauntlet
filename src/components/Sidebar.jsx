@@ -11,6 +11,8 @@ export default function Sidebar({
   setSortBy,
   sortOrder,
   setSortOrder,
+  mobileMenuOpen,
+  onClose,
 }) {
   const handleCategoryToggle = (category) => {
     setSelectedCategories((prev) =>
@@ -37,7 +39,16 @@ export default function Sidebar({
   const hasActiveFilters = selectedCategories.length > 0 || selectedAsterisks.length > 0 || searchQuery
 
   return (
-    <aside className="sidebar">
+    <>
+      {/* Backdrop overlay for mobile */}
+      {mobileMenuOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+      <aside className={`sidebar ${mobileMenuOpen ? 'sidebar-open' : ''}`}>
       {/* Header / Branding */}
       <div className="sidebar-header">
         <h1 className="text-2xl font-display font-bold text-yak-gold tracking-wide">
@@ -151,5 +162,6 @@ export default function Sidebar({
         </div>
       )}
     </aside>
+    </>
   )
 }

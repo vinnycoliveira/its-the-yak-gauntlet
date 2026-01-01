@@ -79,20 +79,10 @@
   transform: translateX(-50%) translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(0.95);
 }
 
-/* Responsive: move FAB on mobile when sidebar collapses */
+/* Hide desktop FAB on mobile - use header button instead */
 @media (max-width: 768px) {
   .scroll-to-top-fab {
-    left: auto;
-    right: 24px;
-    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress)));
-  }
-
-  .scroll-to-top-fab:hover {
-    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(1.1);
-  }
-
-  .scroll-to-top-fab:active {
-    transform: translateY(calc(var(--travel-distance) * var(--scroll-progress))) scale(0.95);
+    display: none !important;
   }
 }
 
@@ -123,12 +113,45 @@
   --edge-shift: 0px;
   transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), var(--card-y, 0px));
   transition: transform 0.3s ease;
+  /* CSS containment for better performance */
+  contain: layout style;
 }
 
-/* Only apply hover transform when card is NOT flipped */
-.card-grid-item:not(:has(.flipped)):hover {
-  z-index: 200; /* Above all other cards and sidebar */
-  transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), calc(var(--card-y, 0px) + var(--edge-shift)));
+/* Mobile: keep random rotations but disable transitions */
+@media (max-width: 768px) {
+  .card-grid-item {
+    /* Smooth rolodex transition with custom easing */
+    /* cubic-bezier: gentle ease-out that feels natural */
+    transition:
+      transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      filter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      opacity 0.3s ease-out;
+    /* Use layout/style containment only - paint would clip rotated cards */
+    contain: layout style;
+  }
+
+  /* Mobile rolodex effect - centered card scales up with shadow */
+  .card-grid-item.mobile-centered {
+    transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), var(--card-y, 0px)) scale(1.08);
+    z-index: 10;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
+    opacity: 1;
+  }
+
+  /* Non-centered cards are slightly smaller for contrast */
+  .card-grid-item:not(.mobile-centered) {
+    transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), var(--card-y, 0px)) scale(0.95);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    opacity: 0.85;
+  }
+}
+
+/* Only apply hover transform when card is NOT flipped - disabled on mobile */
+@media (min-width: 769px) {
+  .card-grid-item:not(:has(.flipped)):hover {
+    z-index: 200; /* Above all other cards and sidebar */
+    transform: rotate(var(--card-rotation, 0deg)) translate(var(--card-x, 0px), calc(var(--card-y, 0px) + var(--edge-shift)));
+  }
 }
 
 /* Keep grid item elevated when card is flipped (no transform change on hover) */
@@ -140,31 +163,9 @@
 /* First row cards shift down, last row cards shift up */
 /* Order matters: last-row rules first, then first-row rules override */
 /* This ensures cards in BOTH first and last row shift DOWN (top edge is more critical) */
+/* All hover edge-shift rules only apply on desktop */
 
-/* Default: 1 column - first and last items */
-.card-grid-item:hover {
-  --edge-shift: 0px;
-}
-.card-grid-item:last-child:hover {
-  --edge-shift: -32px;
-}
-.card-grid-item:first-child:hover {
-  --edge-shift: 32px;
-}
-
-/* 2 columns (sm: 640px+) */
-@media (min-width: 640px) {
-  .card-grid-item:hover {
-    --edge-shift: 0px;
-  }
-  .card-grid-item:nth-last-child(-n+2):hover {
-    --edge-shift: -32px;
-  }
-  .card-grid-item:nth-child(-n+2):hover {
-    --edge-shift: 32px;
-  }
-}
-
+/* 2 columns (sm: 640px+ but below mobile breakpoint doesn't apply) */
 /* 3 columns (lg: 1024px+) */
 @media (min-width: 1024px) {
   .card-grid-item:hover {
@@ -191,20 +192,108 @@
   }
 }
 
-/* Responsive: collapse sidebar on mobile */
+/* Mobile Header - only visible on mobile */
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    padding: 12px 16px;
+    background: linear-gradient(180deg, #1a1f2e 0%, #141820 100%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .mobile-header h1 {
+    text-align: center;
+  }
+
+  .mobile-menu-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Mobile scroll-to-top button in header */
+  .mobile-scroll-top-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-yak-gold, #d4af37);
+    color: var(--color-yak-navy, #1a1f2e);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  .mobile-scroll-top-btn:active {
+    transform: scale(0.9);
+  }
+}
+
+/* Sidebar backdrop overlay for mobile */
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+  }
+}
+
+/* Responsive: sidebar as slide-out drawer on mobile */
 @media (max-width: 768px) {
   .app-layout {
     flex-direction: column;
   }
 
   .sidebar {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 200;
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    border-bottom: none;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
   }
 
   .main-content {
@@ -221,4 +310,56 @@
   font-family: 'Digital Numbers';
   src: local('DSEG7 Classic'), local('Digital-7'), local('Segment7');
   font-display: swap;
+}
+
+/* ============================================
+   LAZY LOADING PLACEHOLDER SKELETON
+   ============================================ */
+
+.lazy-card-placeholder {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5; /* Standard trading card ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lazy-card-skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer animation */
+.lazy-card-skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }

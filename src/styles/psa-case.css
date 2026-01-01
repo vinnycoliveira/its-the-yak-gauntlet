@@ -19,12 +19,17 @@
   border-radius: 8px;
   /* Allow transforms on hover */
   transition: transform 0.2s ease;
+  /* Force GPU layer to prevent mobile scroll issues with 3D */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-/* Scale up on hover when NOT flipped */
-.psa-case:not(.flipped):hover {
-  transform: scale(1.08);
-  z-index: 200;
+/* Scale up on hover when NOT flipped - disabled on mobile */
+@media (min-width: 769px) {
+  .psa-case:not(.flipped):hover {
+    transform: scale(1.08);
+    z-index: 200;
+  }
 }
 
 /* Keep PSA case enlarged when flipped - don't shrink on mouse leave */
@@ -37,7 +42,10 @@
 .psa-case-transform {
   position: relative;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   border-radius: 8px;
+  /* Prevent mobile browsers from flattening 3D during scroll */
+  will-change: transform;
 }
 
 /* Outer frame - thickest border (on front face) */
@@ -240,18 +248,20 @@
   );
 }
 
-/* Hover effect - slight scale and enhanced shine */
-.psa-case:hover .psa-case-overlay {
-  background: linear-gradient(
-    125deg,
-    transparent 0%,
-    transparent 38%,
-    rgba(255, 255, 255, 0.18) 43%,
-    rgba(255, 255, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0.18) 57%,
-    transparent 62%,
-    transparent 100%
-  );
+/* Hover effect - slight scale and enhanced shine - disabled on mobile */
+@media (min-width: 769px) {
+  .psa-case:hover .psa-case-overlay {
+    background: linear-gradient(
+      125deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(255, 255, 255, 0.18) 43%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0.18) 57%,
+      transparent 62%,
+      transparent 100%
+    );
+  }
 }
 
 /* Card grid item adjustments for PSA cases */
@@ -277,10 +287,12 @@
   z-index: auto;
 }
 
-/* Enable holofoil effects when PSA case is hovered (not just card) */
-.psa-case:hover .card-shine,
-.psa-case:hover .card-glare {
-  opacity: 1;
+/* Enable holofoil effects when PSA case is hovered (not just card) - disabled on mobile */
+@media (min-width: 769px) {
+  .psa-case:hover .card-shine,
+  .psa-case:hover .card-glare {
+    opacity: 1;
+  }
 }
 
 /* Ensure card holofoil effects render above PSA case overlay */
@@ -317,6 +329,9 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: 8px;
+  /* Force GPU compositing to prevent mobile scroll glitches */
+  -webkit-transform: translateZ(1px);
+  transform: translateZ(1px);
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.15) 0%,
@@ -344,7 +359,9 @@
   padding: 66px 12px 12px 12px; /* Same as front */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: rotateY(180deg);
+  /* Include translateZ to force GPU layer and prevent mobile scroll glitches */
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg) translateZ(1px);
   border-radius: 8px;
   background: linear-gradient(
     135deg,
@@ -426,4 +443,62 @@
   right: 0;
   transform-origin: right center;
   transform: rotateY(90deg);
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 768px) {
+  /* Hide PSA overlay reflections on mobile - saves GPU layers */
+  .psa-case-overlay,
+  .psa-case-overlay::before,
+  .psa-case-overlay::after {
+    display: none !important;
+  }
+
+  /* Hide depth layer on mobile */
+  .psa-case-depth {
+    display: none;
+  }
+
+  /* Simplify PSA case front box-shadow */
+  .psa-case-front {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Simplify PSA case back box-shadow */
+  .psa-case-back {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Simplify frame borders - hide complex pseudo-elements */
+  .psa-case-front::before,
+  .psa-case-front::after,
+  .psa-case-back::before,
+  .psa-case-back::after {
+    display: none;
+  }
+
+  /* Add simple border instead */
+  .psa-case-front,
+  .psa-case-back {
+    border: 2px solid rgba(170, 169, 172, 0.7);
+  }
+
+  /* Simplify edge gradients */
+  .psa-case-edge {
+    background: rgba(170, 169, 172, 0.9);
+  }
+
+  /* Disable scale on flipped PSA case */
+  .psa-case.flipped {
+    transform: none;
+  }
+
+  /* Use layout/style containment only - paint would clip content */
+  .psa-case {
+    contain: layout style;
+  }
 }

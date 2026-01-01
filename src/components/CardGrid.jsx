@@ -1,8 +1,14 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 import GauntletCard from './GauntletCard'
 import PSAGradeCase from './PSAGradeCase'
+import LazyCard from './LazyCard'
 import { getCardVariant, FRAME_SHAPES } from '../utils/cardVariants'
 import { shouldShowPSACase } from '../utils/dataHelpers'
+
+const CARDS_PER_PAGE = 12
+
+// Check if we're on mobile (matches CSS breakpoint)
+const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches
 
 /**
  * Simple hash function for deterministic randomness
@@ -67,8 +73,62 @@ function computeVariantOverrides(runs) {
 }
 
 export default function CardGrid({ runs }) {
+  const [isMobile, setIsMobile] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(CARDS_PER_PAGE)
+  const loadMoreRef = useRef(null)
+  const prevRunsRef = useRef(runs)
+
+  // Check viewport on mount and resize
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(isMobileViewport())
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Reset visible count when runs change (e.g., new filter applied)
+  if (prevRunsRef.current !== runs) {
+    prevRunsRef.current = runs
+    if (visibleCount !== CARDS_PER_PAGE) {
+      setVisibleCount(CARDS_PER_PAGE)
+    }
+  }
+
+  // Load more cards when the sentinel comes into view (mobile only)
+  const loadMore = useCallback(() => {
+    if (!isMobile) return
+    setVisibleCount((prev) => Math.min(prev + CARDS_PER_PAGE, runs.length))
+  }, [runs.length, isMobile])
+
+  // IntersectionObserver to trigger loading more cards (mobile only)
+  useEffect(() => {
+    if (!isMobile) return
+
+    const sentinel = loadMoreRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          loadMore()
+        }
+      },
+      { rootMargin: '400px 0px' }
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [loadMore, isMobile])
+
   // Compute overrides to avoid adjacent same-style cards (preserves rank order)
   const variantOverrides = useMemo(() => computeVariantOverrides(runs), [runs])
+
+  // On mobile, only render cards up to visibleCount; on desktop, render all
+  const visibleRuns = useMemo(
+    () => (isMobile ? runs.slice(0, visibleCount) : runs),
+    [runs, visibleCount, isMobile]
+  )
+  const hasMore = isMobile && visibleCount < runs.length
 
   if (runs.length === 0) {
     return (
@@ -79,45 +139,46 @@ export default function CardGrid({ runs }) {
     )
   }
 
-  // Calculate row positions for edge detection
-  // We use data attributes so CSS can handle the hover shift
-  const totalCards = runs.length
-
   return (
-    <div className="card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {runs.map((run, index) => {
-        const offset = getGridOffset(run.id)
-        const showPSACase = shouldShowPSACase(run)
+    <>
+      <div className="card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {visibleRuns.map((run, index) => {
+          const offset = getGridOffset(run.id)
+          const showPSACase = shouldShowPSACase(run)
 
-        return (
-          <div
-            key={run.id}
-            className={`card-grid-item ${showPSACase ? 'has-psa-case' : ''}`}
-            data-index={index}
-            data-total={totalCards}
-            style={{
-              '--card-rotation': `${offset.rotation}deg`,
-              '--card-x': `${offset.x}px`,
-              '--card-y': `${offset.y}px`,
-            }}
-          >
-            {showPSACase ? (
-              <PSAGradeCase name={run.competitor} date={run.date}>
-                {(psaCaseState) => (
-                  <GauntletCard
-                    run={run}
-                    variantOverrides={variantOverrides[index]}
-                    inPSACase
-                    psaCaseState={psaCaseState}
-                  />
-                )}
-              </PSAGradeCase>
-            ) : (
-              <GauntletCard run={run} variantOverrides={variantOverrides[index]} />
-            )}
-          </div>
-        )
-      })}
-    </div>
+          return (
+            <LazyCard
+              key={run.id}
+              className={`card-grid-item ${showPSACase ? 'has-psa-case' : ''}`}
+              style={{
+                '--card-rotation': `${offset.rotation}deg`,
+                '--card-x': `${offset.x}px`,
+                '--card-y': `${offset.y}px`,
+              }}
+            >
+              {showPSACase ? (
+                <PSAGradeCase name={run.competitor} date={run.date}>
+                  {(psaCaseState) => (
+                    <GauntletCard
+                      run={run}
+                      variantOverrides={variantOverrides[index]}
+                      inPSACase
+                      psaCaseState={psaCaseState}
+                    />
+                  )}
+                </PSAGradeCase>
+              ) : (
+                <GauntletCard run={run} variantOverrides={variantOverrides[index]} />
+              )}
+            </LazyCard>
+          )
+        })}
+      </div>
+      {hasMore && (
+        <div ref={loadMoreRef} className="load-more-sentinel py-8 text-center">
+          <p className="text-white/50 text-sm">Loading more cards...</p>
+        </div>
+      )}
+    </>
   )
 }

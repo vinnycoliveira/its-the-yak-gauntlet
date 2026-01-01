@@ -1,6 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 
-export default function ScrollToTopFab() {
+// Context to share scroll state with mobile header
+const ScrollContext = createContext({ isVisible: false, scrollToTop: () => {} })
+
+export function useScrollToTop() {
+  return useContext(ScrollContext)
+}
+
+export function ScrollToTopProvider({ children }) {
   const [isVisible, setIsVisible] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
@@ -36,6 +43,16 @@ export default function ScrollToTopFab() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  return (
+    <ScrollContext.Provider value={{ isVisible, scrollProgress, scrollToTop }}>
+      {children}
+    </ScrollContext.Provider>
+  )
+}
+
+export default function ScrollToTopFab() {
+  const { isVisible, scrollProgress, scrollToTop } = useScrollToTop()
 
   // Calculate vertical position using CSS custom property for smooth GPU-accelerated animation
   // Progress 0 = near top, Progress 1 = near bottom

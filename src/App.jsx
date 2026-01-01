@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import Sidebar from './components/Sidebar'
+import MobileHeader from './components/MobileHeader'
 import CardGrid from './components/CardGrid'
-import ScrollToTopFab from './components/ScrollToTopFab'
+import ScrollToTopFab, { ScrollToTopProvider } from './components/ScrollToTopFab'
 import { useGauntletData } from './hooks/useGauntletData'
 import { filterRuns, sortRuns } from './utils/dataHelpers'
 
@@ -13,6 +14,7 @@ function App() {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedAsterisks, setSelectedAsterisks] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const filteredAndSortedRuns = useMemo(() => {
     let result = filterRuns(runs, {
@@ -32,26 +34,34 @@ function App() {
   }
 
   return (
-    <div className="app-layout">
-      <Sidebar
-        categories={categories}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        asterisksList={asterisksList}
-        selectedAsterisks={selectedAsterisks}
-        setSelectedAsterisks={setSelectedAsterisks}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
-      />
-      <main className="main-content">
-        <CardGrid runs={filteredAndSortedRuns} />
-      </main>
-      <ScrollToTopFab />
-    </div>
+    <ScrollToTopProvider>
+      <div className="app-layout">
+        <MobileHeader
+          isOpen={mobileMenuOpen}
+          onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
+        />
+        <Sidebar
+          categories={categories}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+          asterisksList={asterisksList}
+          selectedAsterisks={selectedAsterisks}
+          setSelectedAsterisks={setSelectedAsterisks}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          mobileMenuOpen={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
+        />
+        <main className="main-content">
+          <CardGrid runs={filteredAndSortedRuns} />
+        </main>
+        <ScrollToTopFab />
+      </div>
+    </ScrollToTopProvider>
   )
 }
 
