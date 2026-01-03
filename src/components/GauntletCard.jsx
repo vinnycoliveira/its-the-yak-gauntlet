@@ -1,12 +1,17 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { formatDate, parseAsterisks, parseResume } from '../utils/dataHelpers'
 import { getAsteriskPositions, getNameTransform } from '../utils/stickerRandomizer'
 import { getCardVariant, getVariantClasses, getVariantStyles, getCardEffect, getCardEffectClass, getCardPattern, getGlareDirection, FONT_FAMILIES, isLightColor } from '../utils/cardVariants'
+import { getOptimizedImageUrl } from '../utils/imageOptimizer'
 import PositionSticker from './stickers/PositionSticker'
 import ResumeSticker from './stickers/ResumeSticker'
 import AsteriskSticker from './stickers/AsteriskSticker'
 import { NameLabelParallelogramPop, TimeLabelParallelogramPop, NameLabelRibbonPop, TimeLabelRibbonPop, NameLabelHotdog, TimeLabelHotdog } from './labels'
 import CardBackButtons from './CardBackButtons'
+
+// Check if we're on mobile (matches CSS breakpoint)
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
 
 /**
  * Simple hash function for deterministic randomness (same as CardGrid)
@@ -37,8 +42,14 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
   const [imageErrors, setImageErrors] = useState({})
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [pointer, setPointer] = useState({ x: 50, y: 50 }) // Pointer position as percentage
+  const [isMobile, setIsMobile] = useState(false) // Must use state to avoid SSR/hydration issues
   const buttonsPlaceholderRef = useRef(null)
   const cardContainerRef = useRef(null)
+
+  // Check mobile on mount (must be in useEffect to avoid SSR issues)
+  useEffect(() => {
+    setIsMobile(isMobileViewport())
+  }, [])
 
   // Team run detection
   const isTeamRun = run.isTeamRun && run.teamMembers && run.teamMembers.length > 1
@@ -54,19 +65,40 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
   const showBackOnly = inPSACase && psaCaseState?.showBack
 
   const handleClick = (e) => {
+    const newFlippedState = !isFlipped
+    console.log('[CardFlip] Tap detected', {
+      competitor: run.competitor,
+      inPSACase,
+      isFlipping,
+      currentFlipped: isFlipped,
+      willFlipTo: newFlippedState,
+      isMobile,
+    })
+
     // If in PSA case, let the case handle click
-    if (inPSACase) return
+    if (inPSACase) {
+      console.log('[CardFlip] In PSA case, delegating to parent')
+      return
+    }
 
     // Don't flip if already flipping (prevents double-flip)
-    if (isFlipping) return
+    if (isFlipping) {
+      console.log('[CardFlip] Already flipping, ignoring tap')
+      return
+    }
+
+    console.log('[CardFlip] Executing flip to:', newFlippedState ? 'BACK' : 'FRONT')
 
     // Reset tilt when flipping to prevent interference
     setTilt({ x: 0, y: 0 })
     // Enable slower flip transition
     setIsFlipping(true)
-    setIsFlipped(!isFlipped)
+    setIsFlipped(newFlippedState)
     // Remove flipping class after animation completes
-    setTimeout(() => setIsFlipping(false), 500)
+    setTimeout(() => {
+      setIsFlipping(false)
+      console.log('[CardFlip] Flip animation complete, now showing:', newFlippedState ? 'BACK' : 'FRONT')
+    }, 500)
   }
 
   const handleFlipBack = (e) => {
@@ -166,7 +198,8 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
         className="card-inner w-full h-full"
         style={{
           // When in PSA case, don't apply any transforms - the case handles everything
-          transform: inPSACase ? 'none' : `${effectiveIsFlipped ? 'rotateY(180deg)' : ''} rotateX(${effectiveTilt.x}deg) rotateY(${effectiveTilt.y}deg)`,
+          // On mobile, skip 3D transforms entirely - we use display:none/block to swap faces
+          transform: inPSACase || isMobile ? 'none' : `${effectiveIsFlipped ? 'rotateY(180deg)' : ''} rotateX(${effectiveTilt.x}deg) rotateY(${effectiveTilt.y}deg)`,
         }}
       >
         {/* Front of card - hidden when showBackOnly is true (PSA case back face) */}
@@ -190,8 +223,10 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                     <div key={member.name || index} className="team-photo-cell">
                       {member.photoUrl && !imageErrors[member.name] ? (
                         <img
-                          src={member.photoUrl}
+                          src={getOptimizedImageUrl(member.photoUrl)}
                           alt={member.name}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover object-top"
                           onError={() => setImageErrors((prev) => ({ ...prev, [member.name]: true }))}
                         />
@@ -207,8 +242,10 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                 </div>
               ) : run.photoUrl && !imageErrors.single ? (
                 <img
-                  src={run.photoUrl}
+                  src={getOptimizedImageUrl(run.photoUrl)}
                   alt={run.competitor}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                   onError={() => setImageErrors((prev) => ({ ...prev, single: true }))}
                 />
@@ -379,13 +416,43 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                   )}
                 </div>
 
-                {/* Action buttons - placeholder for portal positioning */}
+                {/* Action buttons - inline on mobile, placeholder for portal on desktop */}
                 <div
                   className="card-back-links"
                   ref={buttonsPlaceholderRef}
-                  style={{ visibility: 'hidden', height: '36px' }}
+                  style={isMobile ? {} : { visibility: 'hidden', height: '36px' }}
                 >
-                  {/* Invisible placeholder - actual buttons rendered via portal */}
+                  {/* On mobile, render actual buttons; on desktop, portal renders them */}
+                  {isMobile && (
+                    <>
+                      {run.youtubeUrl && (
+                        <button
+                          type="button"
+                          className="card-back-link youtube"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(run.youtubeUrl, '_blank', 'noopener,noreferrer')
+                          }}
+                          style={{ background: variant.colors.stickerPrimary, color: isLightColor(variant.colors.stickerPrimary) ? '#000' : '#fff' }}
+                        >
+                          Watch Run
+                        </button>
+                      )}
+                      {run.triviaUrl && (
+                        <button
+                          type="button"
+                          className="card-back-link trivia"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(run.triviaUrl, '_blank', 'noopener,noreferrer')
+                          }}
+                          style={{ background: variant.colors.secondary, color: isLightColor(variant.colors.secondary) ? '#000' : '#fff' }}
+                        >
+                          Trivia Quiz
+                        </button>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -403,7 +470,7 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
           isVisible={effectiveIsFlipped && !effectiveIsFlipping}
           containerRef={buttonsPlaceholderRef}
           cardRef={inPSACase ? psaCaseState?.caseRef : cardContainerRef}
-          stickerColor={variant.colors.sticker}
+          stickerColor={variant.colors.stickerPrimary}
           cardSecondary={variant.colors.secondary}
           rotation={getCardRotation(run.id)}
           fabOffsetX={inPSACase ? -8 : -32}

@@ -449,6 +449,21 @@
    MOBILE PERFORMANCE OPTIMIZATIONS
    ============================================ */
 @media (max-width: 768px) {
+  /* CRITICAL: Remove GPU layer promotion from PSA cases */
+  .psa-case {
+    -webkit-transform: none;
+    transform: none;
+    contain: layout style;
+  }
+
+  /* Disable 3D transforms on PSA case transform wrapper */
+  .psa-case-transform {
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    will-change: auto !important;
+    transform: none !important;
+  }
+
   /* Hide PSA overlay reflections on mobile - saves GPU layers */
   .psa-case-overlay,
   .psa-case-overlay::before,
@@ -461,44 +476,57 @@
     display: none;
   }
 
-  /* Simplify PSA case front box-shadow */
+  /* Hide edge elements on mobile */
+  .psa-case-edge {
+    display: none;
+  }
+
+  /* Simplify PSA case front */
   .psa-case-front {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    -webkit-transform: none;
+    transform: none;
   }
 
-  /* Simplify PSA case back box-shadow */
+  /* Mobile flip: toggle visibility instead of 3D transform */
   .psa-case-back {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: none;
+    /* Override the rotateY(180deg) that causes mirroring */
+    -webkit-transform: none !important;
+    transform: none !important;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
-  /* Simplify frame borders - hide complex pseudo-elements */
+  /* When flipped: swap front/back visibility */
+  .psa-case.flipped .psa-case-front {
+    display: none;
+  }
+
+  .psa-case.flipped .psa-case-back {
+    display: block;
+    position: relative;
+    /* Must override rotateY(180deg) from base rule */
+    -webkit-transform: none !important;
+    transform: none !important;
+  }
+
+  /* Keep the double border frame on mobile for both front and back */
   .psa-case-front::before,
   .psa-case-front::after,
   .psa-case-back::before,
   .psa-case-back::after {
-    display: none;
-  }
-
-  /* Add simple border instead */
-  .psa-case-front,
-  .psa-case-back {
-    border: 2px solid rgba(170, 169, 172, 0.7);
-  }
-
-  /* Simplify edge gradients */
-  .psa-case-edge {
-    background: rgba(170, 169, 172, 0.9);
+    display: block;
   }
 
   /* Disable scale on flipped PSA case */
   .psa-case.flipped {
     transform: none;
-  }
-
-  /* Use layout/style containment only - paint would clip content */
-  .psa-case {
-    contain: layout style;
   }
 }

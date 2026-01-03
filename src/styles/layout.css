@@ -363,3 +363,15 @@
     left: 100%;
   }
 }
+
+/* Disable skeleton animation on mobile to save GPU */
+@media (max-width: 768px) {
+  .lazy-card-skeleton::after {
+    animation: none;
+    display: none;
+  }
+
+  .lazy-card-skeleton {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}

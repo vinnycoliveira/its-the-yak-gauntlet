@@ -3,10 +3,16 @@ import { useEffect, useState } from 'react'
 import { isLightColor } from '../utils/cardVariants'
 import YouTubeModal from './YouTubeModal'
 
+// Check if we're on mobile (matches CSS breakpoint)
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+
 /**
  * Portal-based buttons for card back.
  * Renders ALL buttons to document.body to escape 3D transform context,
  * fixing hit-testing issues with backface-visibility and CSS 3D transforms.
+ *
+ * On mobile: returns null - inline buttons in GauntletCard are used instead.
  */
 export default function CardBackButtons({
   youtubeUrl,
@@ -21,6 +27,12 @@ export default function CardBackButtons({
   const [position, setPosition] = useState(null)
   const [hoveredButton, setHoveredButton] = useState(null)
   const [showYouTubeModal, setShowYouTubeModal] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check mobile on mount (must be in useEffect, not before hooks)
+  useEffect(() => {
+    setIsMobile(isMobileViewport())
+  }, [])
 
   useEffect(() => {
     if (!isVisible || !containerRef?.current) {
@@ -55,8 +67,8 @@ export default function CardBackButtons({
     }
   }, [isVisible, containerRef])
 
-  // Don't render if not visible or position not calculated
-  if (!isVisible || !position) return null
+  // Don't render if not visible, position not calculated, or on mobile
+  if (!isVisible || !position || isMobile) return null
 
   // Determine text colors based on background contrast
   const watchRunBg = stickerColor || '#1e8c7a'

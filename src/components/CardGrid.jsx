@@ -8,7 +8,8 @@ import { shouldShowPSACase } from '../utils/dataHelpers'
 const CARDS_PER_PAGE = 12
 
 // Check if we're on mobile (matches CSS breakpoint)
-const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
 
 /**
  * Simple hash function for deterministic randomness
@@ -141,7 +142,7 @@ export default function CardGrid({ runs }) {
 
   return (
     <>
-      <div className="card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="card-grid grid grid-cols-1 sm:grid-cols-2 min-[1200px]:grid-cols-3 min-[1600px]:grid-cols-4 gap-6">
         {visibleRuns.map((run, index) => {
           const offset = getGridOffset(run.id)
           const showPSACase = shouldShowPSACase(run)

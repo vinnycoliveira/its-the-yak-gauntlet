@@ -1,32 +1,43 @@
 import { useState, useRef, useEffect } from 'react'
 
 // Check if we're on mobile (matches CSS breakpoint)
-const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
 
 /**
- * LazyCard - Wrapper component that only renders children when visible
- * Uses IntersectionObserver for performance-friendly lazy loading
- * On mobile, also tracks "centered" state for rolodex effect
+ * LazyCard - Wrapper component with virtualization
+ * On mobile: unloads cards far from viewport to prevent memory exhaustion
+ * On desktop: keeps cards loaded once visible (better UX with more memory)
  */
 export default function LazyCard({ children, className = '', style = {} }) {
-  const [hasLoaded, setHasLoaded] = useState(false)
-  const [isCentered, setIsCentered] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const containerRef = useRef(null)
 
-  // Lazy loading observer - runs once
   useEffect(() => {
     const element = containerRef.current
     if (!element) return
 
+    const isMobile = isMobileViewport()
+
+    // On mobile: use smaller margin and track visibility both ways
+    // On desktop: use larger margin and only load once
+    const rootMargin = isMobile ? '400px 0px' : '200px 0px'
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasLoaded(true)
-          observer.disconnect()
+        if (isMobile) {
+          // Mobile: track visibility both ways (virtualization)
+          setIsVisible(entry.isIntersecting)
+        } else {
+          // Desktop: only load once, never unload
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
         }
       },
       {
-        rootMargin: '200px 0px',
+        rootMargin,
         threshold: 0,
       }
     )
@@ -36,39 +47,9 @@ export default function LazyCard({ children, className = '', style = {} }) {
     return () => observer.disconnect()
   }, [])
 
-  // Mobile rolodex effect - continuous observer for centering
-  useEffect(() => {
-    const element = containerRef.current
-    if (!element) return
-
-    // Only enable on mobile
-    if (!isMobileViewport()) return
-
-    // Observer to detect when card is "centered" (high visibility ratio)
-    const centerObserver = new IntersectionObserver(
-      ([entry]) => {
-        // Card is "centered" when it's highly visible (>60% in viewport center area)
-        setIsCentered(entry.intersectionRatio > 0.6)
-      },
-      {
-        // Shrink the detection area to the center portion of the viewport
-        // Negative margins shrink the root bounds inward
-        rootMargin: '-20% 0px -20% 0px',
-        // Multiple thresholds for smoother detection
-        threshold: [0, 0.3, 0.6, 0.9],
-      }
-    )
-
-    centerObserver.observe(element)
-
-    return () => centerObserver.disconnect()
-  }, [])
-
-  const centeredClass = isCentered ? 'mobile-centered' : ''
-
   return (
-    <div ref={containerRef} className={`${className} ${centeredClass}`} style={style}>
-      {hasLoaded ? (
+    <div ref={containerRef} className={className} style={style}>
+      {isVisible ? (
         children
       ) : (
         <div className="lazy-card-placeholder">

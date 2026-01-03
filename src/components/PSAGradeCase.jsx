@@ -45,19 +45,39 @@ export default function PSAGradeCase({ name, date, children }) {
   const formattedDate = formatDate(date).toUpperCase()
 
   const handleClick = (e) => {
+    const newFlippedState = !isFlipped
+    console.log('[PSAFlip] Tap detected', {
+      name,
+      isFlipping,
+      currentFlipped: isFlipped,
+      willFlipTo: newFlippedState,
+      targetElement: e.target.tagName,
+    })
+
     // Don't flip if clicking on interactive elements inside the card
-    if (e.target.closest('.card-back-link, a, button')) return
+    if (e.target.closest('.card-back-link, a, button')) {
+      console.log('[PSAFlip] Clicked interactive element, not flipping')
+      return
+    }
 
     // Don't flip if already flipping (prevents double-flip)
-    if (isFlipping) return
+    if (isFlipping) {
+      console.log('[PSAFlip] Already flipping, ignoring tap')
+      return
+    }
+
+    console.log('[PSAFlip] Executing flip to:', newFlippedState ? 'BACK' : 'FRONT')
 
     // Reset tilt when flipping to prevent interference
     setTilt({ x: 0, y: 0 })
     // Enable slower flip transition
     setIsFlipping(true)
-    setIsFlipped(!isFlipped)
+    setIsFlipped(newFlippedState)
     // Remove flipping class after animation completes
-    setTimeout(() => setIsFlipping(false), 500)
+    setTimeout(() => {
+      setIsFlipping(false)
+      console.log('[PSAFlip] Flip animation complete, now showing:', newFlippedState ? 'BACK' : 'FRONT')
+    }, 500)
   }
 
   const handleFlipBack = (e) => {

@@ -46,6 +46,7 @@ export const PALETTE_FAMILIES = [
  * Determine if a color is light (for text contrast)
  */
 export function isLightColor(hex) {
+  if (!hex || typeof hex !== 'string') return false // Fallback: assume dark
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
   const b = parseInt(hex.slice(5, 7), 16)
