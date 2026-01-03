@@ -1,5 +1,9 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { formatDate } from '../utils/dataHelpers'
+
+// Check if we're on mobile (matches CSS breakpoint)
+const isMobileViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
 
 /**
  * Generate a deterministic barcode pattern based on competitor name
@@ -35,9 +39,16 @@ function generateBarcode(name) {
 export default function PSAGradeCase({ name, date, children }) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isFlipping, setIsFlipping] = useState(false)
+  const [flipDirection, setFlipDirection] = useState(null) // 'to-back' or 'to-front' for CSS animation
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [pointer, setPointer] = useState({ x: 50, y: 50 })
+  const [isMobile, setIsMobile] = useState(false)
   const caseRef = useRef(null)
+
+  // Check mobile on mount
+  useEffect(() => {
+    setIsMobile(isMobileViewport())
+  }, [])
 
   const barcodePattern = generateBarcode(name)
 
@@ -70,12 +81,15 @@ export default function PSAGradeCase({ name, date, children }) {
 
     // Reset tilt when flipping to prevent interference
     setTilt({ x: 0, y: 0 })
+    // Set flip direction for CSS animation (mobile uses directional classes)
+    setFlipDirection(newFlippedState ? 'to-back' : 'to-front')
     // Enable slower flip transition
     setIsFlipping(true)
     setIsFlipped(newFlippedState)
     // Remove flipping class after animation completes
     setTimeout(() => {
       setIsFlipping(false)
+      setFlipDirection(null)
       console.log('[PSAFlip] Flip animation complete, now showing:', newFlippedState ? 'BACK' : 'FRONT')
     }, 500)
   }
@@ -85,9 +99,13 @@ export default function PSAGradeCase({ name, date, children }) {
     if (isFlipping) return
 
     setTilt({ x: 0, y: 0 })
+    setFlipDirection('to-front')
     setIsFlipping(true)
     setIsFlipped(false)
-    setTimeout(() => setIsFlipping(false), 500)
+    setTimeout(() => {
+      setIsFlipping(false)
+      setFlipDirection(null)
+    }, 500)
   }
 
   const handleMouseMove = (e) => {
@@ -132,7 +150,7 @@ export default function PSAGradeCase({ name, date, children }) {
   return (
     <div
       ref={caseRef}
-      className={`psa-case cursor-pointer ${isFlipped ? 'flipped' : ''} ${isFlipping ? 'flipping' : ''}`}
+      className={`psa-case cursor-pointer ${isFlipped ? 'flipped' : ''} ${isFlipping ? 'flipping' : ''} ${flipDirection ? `flip-${flipDirection}` : ''}`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -142,9 +160,15 @@ export default function PSAGradeCase({ name, date, children }) {
       <div
         className="psa-case-transform"
         style={{
-          transform: `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 + tilt.y : tilt.y}deg)`,
-          transformStyle: 'preserve-3d',
-          transition: isFlipping ? 'transform 0.6s ease-in-out' : 'transform 0.15s ease-out',
+          // On mobile: CSS handles the flip animation via .flipping class - don't apply rotation here
+          // On desktop: full 3D transform with tilt
+          transform: isMobile
+            ? undefined  // CSS handles transform on mobile
+            : `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 + tilt.y : tilt.y}deg)`,
+          transformStyle: isMobile ? undefined : 'preserve-3d',
+          transition: isMobile
+            ? undefined  // CSS handles transition on mobile
+            : (isFlipping ? 'transform 0.6s ease-in-out' : 'transform 0.15s ease-out'),
         }}
       >
         {/* Front face of PSA case */}

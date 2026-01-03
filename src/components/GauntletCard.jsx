@@ -39,6 +39,7 @@ function getCardRotation(seed) {
 export default function GauntletCard({ run, variantOverrides = {}, inPSACase = false, psaCaseState = null }) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isFlipping, setIsFlipping] = useState(false)
+  const [flipDirection, setFlipDirection] = useState(null) // 'to-back' or 'to-front' for CSS animation
   const [imageErrors, setImageErrors] = useState({})
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [pointer, setPointer] = useState({ x: 50, y: 50 }) // Pointer position as percentage
@@ -91,12 +92,15 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
 
     // Reset tilt when flipping to prevent interference
     setTilt({ x: 0, y: 0 })
+    // Set flip direction for CSS animation (mobile uses directional classes)
+    setFlipDirection(newFlippedState ? 'to-back' : 'to-front')
     // Enable slower flip transition
     setIsFlipping(true)
     setIsFlipped(newFlippedState)
     // Remove flipping class after animation completes
     setTimeout(() => {
       setIsFlipping(false)
+      setFlipDirection(null)
       console.log('[CardFlip] Flip animation complete, now showing:', newFlippedState ? 'BACK' : 'FRONT')
     }, 500)
   }
@@ -106,9 +110,13 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
     if (isFlipping) return
 
     setTilt({ x: 0, y: 0 })
+    setFlipDirection('to-front')
     setIsFlipping(true)
     setIsFlipped(false)
-    setTimeout(() => setIsFlipping(false), 500)
+    setTimeout(() => {
+      setIsFlipping(false)
+      setFlipDirection(null)
+    }, 500)
   }
 
   const handleMouseMove = (e) => {
@@ -188,7 +196,7 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
   return (
     <div
       ref={cardContainerRef}
-      className={`card-container variant-card cursor-pointer ${effectiveIsFlipped ? 'flipped' : ''} ${effectiveIsFlipping ? 'flipping' : ''} ${cardEffect} ${glareDirection} ${variantClasses} ${inPSACase ? 'in-psa-case' : ''}`}
+      className={`card-container variant-card cursor-pointer ${effectiveIsFlipped ? 'flipped' : ''} ${effectiveIsFlipping ? 'flipping' : ''} ${flipDirection ? `flip-${flipDirection}` : ''} ${cardEffect} ${glareDirection} ${variantClasses} ${inPSACase ? 'in-psa-case' : ''}`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -198,8 +206,11 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
         className="card-inner w-full h-full"
         style={{
           // When in PSA case, don't apply any transforms - the case handles everything
-          // On mobile, skip 3D transforms entirely - we use display:none/block to swap faces
-          transform: inPSACase || isMobile ? 'none' : `${effectiveIsFlipped ? 'rotateY(180deg)' : ''} rotateX(${effectiveTilt.x}deg) rotateY(${effectiveTilt.y}deg)`,
+          // On mobile: CSS handles the flip animation via .flipping class - don't apply rotation here
+          // On desktop: full 3D transform with tilt
+          transform: inPSACase || isMobile
+            ? 'none'
+            : `${effectiveIsFlipped ? 'rotateY(180deg)' : ''} rotateX(${effectiveTilt.x}deg) rotateY(${effectiveTilt.y}deg)`,
         }}
       >
         {/* Front of card - hidden when showBackOnly is true (PSA case back face) */}
