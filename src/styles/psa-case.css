@@ -457,11 +457,13 @@
   }
 
   /* Disable 3D transforms on PSA case transform wrapper */
+  /* NOTE: transform does NOT use !important so inline JS styles can override during flip */
   .psa-case-transform {
     transform-style: flat !important;
     -webkit-transform-style: flat !important;
     will-change: auto !important;
-    transform: none !important;
+    transform: none;
+    -webkit-transform: none;
   }
 
   /* Hide PSA overlay reflections on mobile - saves GPU layers */
@@ -512,9 +514,9 @@
   .psa-case.flipped:not(.flipping) .psa-case-back {
     display: block;
     position: relative;
-    /* Must override rotateY(180deg) from base rule */
-    -webkit-transform: none !important;
-    transform: none !important;
+    /* Content was designed to be viewed through 180deg rotation, so mirror it horizontally */
+    -webkit-transform: scaleX(-1) !important;
+    transform: scaleX(-1) !important;
   }
 
   /* Keep the double border frame on mobile for both front and back */
@@ -531,8 +533,8 @@
   }
 
   /* ============================================
-     PSA CASE MOBILE FLIP ANIMATION (Single-Card GPU Promotion)
-     Only enables 3D on the ONE case being flipped
+     PSA CASE MOBILE FLIP ANIMATION
+     JS handles transform rotation, CSS enables 3D context during flip
      ============================================ */
 
   /* Enable 3D context ONLY during flip animation */
@@ -541,27 +543,24 @@
     perspective: 1000px;
   }
 
-  /* psa-case-transform rotates to flip the case */
+  /* CRITICAL: Override the transform: none rule during flip so JS transform works */
+  /* Note: !important on inline styles doesn't work, so we remove the !important from
+     the base rule by not having any transform property here - the inline style will apply */
   .psa-case.flipping .psa-case-transform {
     -webkit-transform-style: preserve-3d !important;
     transform-style: preserve-3d !important;
-    transition: transform 0.4s ease-in-out !important;
   }
 
-  /* Flipping TO back: rotate transform to 180deg */
-  .psa-case.flipping.flip-to-back .psa-case-transform {
-    -webkit-transform: rotateY(180deg) !important;
-    transform: rotateY(180deg) !important;
+  /* During flip: front stays relative (maintains height), back is absolute overlay */
+  .psa-case.flipping .psa-case-front {
+    display: block !important;
+    position: relative;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform: rotateY(0deg) translateZ(1px) !important;
+    transform: rotateY(0deg) translateZ(1px) !important;
   }
 
-  /* Flipping TO front: rotate transform to 0deg */
-  .psa-case.flipping.flip-to-front .psa-case-transform {
-    -webkit-transform: rotateY(0deg) !important;
-    transform: rotateY(0deg) !important;
-  }
-
-  /* During flip: show both faces with backface-visibility */
-  .psa-case.flipping .psa-case-front,
   .psa-case.flipping .psa-case-back {
     display: block !important;
     position: absolute;
@@ -571,17 +570,27 @@
     height: 100%;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
-  }
-
-  /* Front face: no rotation (faces forward) */
-  .psa-case.flipping .psa-case-front {
-    -webkit-transform: rotateY(0deg) translateZ(1px) !important;
-    transform: rotateY(0deg) translateZ(1px) !important;
-  }
-
-  /* Back face: rotated 180deg (faces backward, visible when transform rotates) */
-  .psa-case.flipping .psa-case-back {
     -webkit-transform: rotateY(180deg) translateZ(1px) !important;
     transform: rotateY(180deg) translateZ(1px) !important;
   }
+
+  /* CRITICAL: Override nested card visibility rules during PSA flip */
+  /* Front PSA face shows card front */
+  .psa-case.flipping .psa-case-front .card-front {
+    display: block !important;
+  }
+  .psa-case.flipping .psa-case-front .card-back {
+    display: none !important;
+  }
+  /* Back PSA face shows card back (via psa-back-static class) */
+  .psa-case.flipping .psa-case-back .card-back.psa-back-static {
+    display: block !important;
+    position: relative !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+  }
+  .psa-case.flipping .psa-case-back .card-front {
+    display: none !important;
+  }
+
 }

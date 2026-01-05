@@ -160,15 +160,15 @@ export default function PSAGradeCase({ name, date, children }) {
       <div
         className="psa-case-transform"
         style={{
-          // On mobile: CSS handles the flip animation via .flipping class - don't apply rotation here
-          // On desktop: full 3D transform with tilt
+          // Use JS transform for flip on ALL platforms (mobile included)
+          // On mobile: no tilt, just flip rotation
+          // On desktop: tilt + flip rotation
           transform: isMobile
-            ? undefined  // CSS handles transform on mobile
+            ? `rotateY(${isFlipped ? 180 : 0}deg)`  // Simple flip on mobile
             : `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 + tilt.y : tilt.y}deg)`,
-          transformStyle: isMobile ? undefined : 'preserve-3d',
-          transition: isMobile
-            ? undefined  // CSS handles transition on mobile
-            : (isFlipping ? 'transform 0.6s ease-in-out' : 'transform 0.15s ease-out'),
+          // 3D context only during flip on mobile (crash prevention), always on desktop
+          transformStyle: isMobile ? (isFlipping ? 'preserve-3d' : undefined) : 'preserve-3d',
+          transition: isFlipping ? 'transform 0.5s ease-in-out' : (isMobile ? undefined : 'transform 0.15s ease-out'),
         }}
       >
         {/* Front face of PSA case */}
