@@ -21,8 +21,13 @@ export const IMAGE_SIZES = {
 function isVercelDeployment() {
   if (typeof window === 'undefined') return false
   const { hostname } = window.location
-  // Check for Vercel preview/production domains
-  return hostname.endsWith('.vercel.app') || hostname.endsWith('.vercel.sh')
+  // Check for Vercel preview/production domains and custom domain
+  return (
+    hostname.endsWith('.vercel.app') ||
+    hostname.endsWith('.vercel.sh') ||
+    hostname === 'itstheyakgauntlet.com' ||
+    hostname === 'www.itstheyakgauntlet.com'
+  )
 }
 
 /**
