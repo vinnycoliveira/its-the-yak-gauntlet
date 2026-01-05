@@ -1,5 +1,15 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "images": {
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "**.airtableusercontent.com"
+      }
+    ],
+    "formats": ["image/webp"],
+    "minimumCacheTTL": 86400
+  }
 }

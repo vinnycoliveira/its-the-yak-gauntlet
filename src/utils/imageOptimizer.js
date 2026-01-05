@@ -1,58 +1,83 @@
 /**
- * Image optimization utility using Cloudinary's fetch feature
+ * Image optimization using Vercel's built-in image optimization
  *
- * To enable: set VITE_CLOUDINARY_CLOUD_NAME in .env
- * If not set, returns original URLs (no optimization)
+ * Uses the /_vercel/image endpoint to optimize external images.
+ * Falls back to original URLs on localhost (where Vercel endpoint doesn't exist).
  */
-
-const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
 
 // Card dimensions (2.5:3.5 aspect ratio)
 const CARD_WIDTH = 400
 const CARD_HEIGHT = 560
 
+// Responsive size presets
+export const IMAGE_SIZES = {
+  mobile: { width: 200 },
+  desktop: { width: 400 },
+}
+
+// Check if running in development (Vercel image optimization won't work locally)
+const isDevelopment = typeof window !== 'undefined' && (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.hostname.startsWith('192.168.') ||
+  window.location.hostname.startsWith('10.') ||
+  window.location.port === '5173' // Vite dev server default port
+)
+
 /**
- * Transform an image URL to use Cloudinary's optimization
+ * Transform an image URL to use Vercel's image optimization
  *
  * @param {string} originalUrl - The original image URL (e.g., from Airtable)
  * @param {object} options - Optional overrides
- * @returns {string} - Optimized Cloudinary URL, or original if invalid
+ * @returns {string} - Optimized Vercel image URL, or original if invalid/localhost
  */
 export function getOptimizedImageUrl(originalUrl, options = {}) {
   if (!originalUrl) return originalUrl
 
-  // If no cloud name configured, return original URL
-  if (!CLOUD_NAME) return originalUrl
-
-  // Skip if already a Cloudinary URL
-  if (originalUrl.includes('cloudinary.com')) return originalUrl
-
   // Skip data URLs
   if (originalUrl.startsWith('data:')) return originalUrl
 
-  const {
-    width = CARD_WIDTH,
-    height = CARD_HEIGHT,
-    crop = 'fill',      // fill, fit, crop, thumb
-    gravity = 'face',   // face detection for better cropping
-    quality = 'auto',   // automatic quality optimization
-    format = 'auto',    // automatic format (WebP, AVIF when supported)
-  } = options
+  // Skip optimization for local/relative URLs
+  if (!originalUrl.startsWith('http')) return originalUrl
 
-  // Build Cloudinary transformation string
-  const transforms = [
-    `w_${width}`,
-    `h_${height}`,
-    `c_${crop}`,
-    `g_${gravity}`,
-    `q_${quality}`,
-    `f_${format}`,
-  ].join(',')
+  // In development, return original URL (Vercel image optimization not available)
+  if (isDevelopment) return originalUrl
 
-  // Encode the source URL
-  const encodedUrl = encodeURIComponent(originalUrl)
+  const { width = CARD_WIDTH, quality = 75 } = options
 
-  return `https://res.cloudinary.com/${CLOUD_NAME}/image/fetch/${transforms}/${encodedUrl}`
+  const params = new URLSearchParams({
+    url: originalUrl,
+    w: width.toString(),
+    q: quality.toString(),
+  })
+
+  return `/_vercel/image?${params.toString()}`
+}
+
+/**
+ * Get responsive image URLs for srcset
+ *
+ * @param {string} originalUrl - The original image URL
+ * @returns {object} - { src, srcSet, sizes } for img element
+ */
+export function getResponsiveImageUrls(originalUrl) {
+  if (!originalUrl || originalUrl.startsWith('data:') || !originalUrl.startsWith('http')) {
+    return { src: originalUrl, srcSet: null, sizes: null }
+  }
+
+  // In development, just return original URL without srcset
+  if (isDevelopment) {
+    return { src: originalUrl, srcSet: null, sizes: null }
+  }
+
+  const mobileSrc = getOptimizedImageUrl(originalUrl, IMAGE_SIZES.mobile)
+  const desktopSrc = getOptimizedImageUrl(originalUrl, IMAGE_SIZES.desktop)
+
+  return {
+    src: desktopSrc,
+    srcSet: `${mobileSrc} 200w, ${desktopSrc} 400w`,
+    sizes: '(max-width: 768px) 200px, 400px',
+  }
 }
 
 /**
@@ -60,7 +85,7 @@ export function getOptimizedImageUrl(originalUrl, options = {}) {
  * @returns {boolean}
  */
 export function isOptimizationEnabled() {
-  // Always enabled - uses demo cloud as fallback
+  // Vercel image optimization is always available on deployed sites
   return true
 }
 
@@ -71,7 +96,7 @@ export function isOptimizationEnabled() {
 export function getOptimizationStatus() {
   return {
     enabled: true,
-    cloudName: CLOUD_NAME,
-    isDemo: CLOUD_NAME === 'demo',
+    provider: 'vercel',
+    note: 'Only works on deployed Vercel sites, not localhost',
   }
 }

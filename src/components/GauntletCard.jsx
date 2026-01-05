@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { formatDate, parseAsterisks, parseResume } from '../utils/dataHelpers'
 import { getAsteriskPositions, getNameTransform } from '../utils/stickerRandomizer'
 import { getCardVariant, getVariantClasses, getVariantStyles, getCardEffect, getCardEffectClass, getCardPattern, getGlareDirection, FONT_FAMILIES, isLightColor } from '../utils/cardVariants'
-import { getOptimizedImageUrl } from '../utils/imageOptimizer'
+import { getResponsiveImageUrls } from '../utils/imageOptimizer'
 import PositionSticker from './stickers/PositionSticker'
 import ResumeSticker from './stickers/ResumeSticker'
 import AsteriskSticker from './stickers/AsteriskSticker'
@@ -233,14 +233,21 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                   {run.teamMembers.map((member, index) => (
                     <div key={member.name || index} className="team-photo-cell">
                       {member.photoUrl && !imageErrors[member.name] ? (
-                        <img
-                          src={getOptimizedImageUrl(member.photoUrl)}
-                          alt={member.name}
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-full object-cover object-top"
-                          onError={() => setImageErrors((prev) => ({ ...prev, [member.name]: true }))}
-                        />
+                        (() => {
+                          const imageProps = getResponsiveImageUrls(member.photoUrl)
+                          return (
+                            <img
+                              src={imageProps.src}
+                              srcSet={imageProps.srcSet}
+                              sizes={imageProps.sizes}
+                              alt={member.name}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover object-top"
+                              onError={() => setImageErrors((prev) => ({ ...prev, [member.name]: true }))}
+                            />
+                          )
+                        })()
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-card-burgundy/20 to-card-dark-red/20">
                           <span className="text-2xl font-display text-white/30">
@@ -252,14 +259,21 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                   ))}
                 </div>
               ) : run.photoUrl && !imageErrors.single ? (
-                <img
-                  src={getOptimizedImageUrl(run.photoUrl)}
-                  alt={run.competitor}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top"
-                  onError={() => setImageErrors((prev) => ({ ...prev, single: true }))}
-                />
+                (() => {
+                  const imageProps = getResponsiveImageUrls(run.photoUrl)
+                  return (
+                    <img
+                      src={imageProps.src}
+                      srcSet={imageProps.srcSet}
+                      sizes={imageProps.sizes}
+                      alt={run.competitor}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-top"
+                      onError={() => setImageErrors((prev) => ({ ...prev, single: true }))}
+                    />
+                  )
+                })()
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-card-burgundy/20 to-card-dark-red/20">
                   <span className="text-8xl font-display text-white/30">
