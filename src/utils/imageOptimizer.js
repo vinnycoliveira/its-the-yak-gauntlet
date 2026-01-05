@@ -16,24 +16,13 @@ export const IMAGE_SIZES = {
 }
 
 /**
- * Check if running locally (Vercel image optimization only works on deployed Vercel sites)
+ * Check if we're on a Vercel deployment (where image optimization is available)
  */
-function isLocalEnvironment() {
-  // In Vite dev mode, always return true
-  if (import.meta.env.DEV) return true
-
-  // For production builds running locally (vite preview), check hostname
-  if (typeof window === 'undefined') return true
-  const { hostname, port } = window.location
-
-  // Check for local development patterns
-  if (hostname === 'localhost') return true
-  if (hostname === '127.0.0.1') return true
-  if (hostname.startsWith('192.168.')) return true
-  if (hostname.startsWith('10.')) return true
-  if (port === '5173' || port === '4173') return true
-
-  return false
+function isVercelDeployment() {
+  if (typeof window === 'undefined') return false
+  const { hostname } = window.location
+  // Check for Vercel preview/production domains
+  return hostname.endsWith('.vercel.app') || hostname.endsWith('.vercel.sh')
 }
 
 /**
@@ -52,8 +41,8 @@ export function getOptimizedImageUrl(originalUrl, options = {}) {
   // Skip optimization for local/relative URLs
   if (!originalUrl.startsWith('http')) return originalUrl
 
-  // Locally, return original URL (Vercel image optimization not available)
-  if (isLocalEnvironment()) return originalUrl
+  // Only use Vercel image optimization on Vercel deployments
+  if (!isVercelDeployment()) return originalUrl
 
   const { width = CARD_WIDTH, quality = 75 } = options
 
@@ -77,8 +66,8 @@ export function getResponsiveImageUrls(originalUrl) {
     return { src: originalUrl, srcSet: null, sizes: null }
   }
 
-  // Locally, just return original URL without srcset
-  if (isLocalEnvironment()) {
+  // Only use responsive images on Vercel deployments
+  if (!isVercelDeployment()) {
     return { src: originalUrl, srcSet: null, sizes: null }
   }
 
