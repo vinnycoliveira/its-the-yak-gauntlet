@@ -31,6 +31,32 @@
   text-align: center;
 }
 
+/* Social icon buttons */
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  color: #d4af37;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.social-icon-btn svg {
+  fill: #d4af37;
+}
+
+.social-icon-btn:hover {
+  color: #e5c349;
+  transform: translateY(-2px);
+}
+
+.social-icon-btn:hover svg {
+  fill: #e5c349;
+}
+
 .sidebar-section {
   display: flex;
   flex-direction: column;
