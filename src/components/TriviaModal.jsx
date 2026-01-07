@@ -1,24 +1,12 @@
-import { useEffect, useCallback, useRef } from 'react'
+import { useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { XMarkIcon } from '@heroicons/react/24/solid'
-import { parseYouTubeUrl } from '../utils/youtubeHelpers'
 
 /**
- * Modal overlay for embedded YouTube player.
- * Supports autoplay and timecode from URL.
+ * Modal overlay for embedded trivia quiz.
+ * Displays external quiz URL in an iframe.
  */
-export default function YouTubeModal({ url, onClose, autoFullscreen = false }) {
-  const iframeRef = useRef(null)
-  const parsed = parseYouTubeUrl(url)
-  const videoId = parsed?.videoId
-  const timecode = parsed?.timecode
-
-  // Build embed URL with autoplay and start time
-  // playsinline=1 is required for iOS Safari to play inline instead of fullscreen
-  const embedUrl = videoId
-    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1${timecode ? `&start=${timecode}` : ''}`
-    : null
-
+export default function TriviaModal({ url, onClose }) {
   const handleEscape = useCallback(
     (e) => {
       if (e.key === 'Escape') onClose()
@@ -36,28 +24,11 @@ export default function YouTubeModal({ url, onClose, autoFullscreen = false }) {
     }
   }, [handleEscape])
 
-  // Auto-fullscreen on mobile when requested
-  useEffect(() => {
-    if (!autoFullscreen || !iframeRef.current) return
-
-    // Small delay to ensure iframe is ready
-    const timer = setTimeout(() => {
-      const iframe = iframeRef.current
-      if (iframe?.requestFullscreen) {
-        iframe.requestFullscreen().catch(() => {})
-      } else if (iframe?.webkitRequestFullscreen) {
-        iframe.webkitRequestFullscreen() // iOS Safari
-      }
-    }, 300)
-
-    return () => clearTimeout(timer)
-  }, [autoFullscreen])
-
-  if (!embedUrl) return null
+  if (!url) return null
 
   return createPortal(
     <div
-      className="youtube-modal-backdrop"
+      className="trivia-modal-backdrop"
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -67,17 +38,19 @@ export default function YouTubeModal({ url, onClose, autoFullscreen = false }) {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        padding: '60px 0 16px',
       }}
     >
       <div
-        className="youtube-modal-content"
+        className="trivia-modal-content"
         onClick={(e) => e.stopPropagation()}
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '960px',
+          maxWidth: '1200px',
+          height: '100%',
+          maxHeight: 'calc(100vh - 76px)',
           margin: '0 16px',
-          aspectRatio: '16 / 9',
         }}
       >
         <button
@@ -106,14 +79,13 @@ export default function YouTubeModal({ url, onClose, autoFullscreen = false }) {
             e.currentTarget.style.opacity = '0.8'
             e.currentTarget.style.transform = 'scale(1)'
           }}
-          aria-label="Close video"
+          aria-label="Close trivia"
         >
           <XMarkIcon style={{ width: 32, height: 32 }} />
         </button>
         <iframe
-          ref={iframeRef}
-          src={embedUrl}
-          title="YouTube video player"
+          src={url}
+          title="Trivia Quiz"
           loading="eager"
           referrerPolicy="no-referrer-when-downgrade"
           style={{
@@ -121,9 +93,9 @@ export default function YouTubeModal({ url, onClose, autoFullscreen = false }) {
             height: '100%',
             borderRadius: '8px',
             border: 'none',
+            backgroundColor: 'white',
           }}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-          allowFullScreen
+          allow="fullscreen"
         />
       </div>
     </div>,

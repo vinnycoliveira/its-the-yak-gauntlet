@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
 import { isLightColor } from '../utils/cardVariants'
 import YouTubeModal from './YouTubeModal'
+import TriviaModal from './TriviaModal'
 
 // Check if we're on mobile (matches CSS breakpoint)
 const isMobileViewport = () =>
@@ -27,6 +28,7 @@ export default function CardBackButtons({
   const [position, setPosition] = useState(null)
   const [hoveredButton, setHoveredButton] = useState(null)
   const [showYouTubeModal, setShowYouTubeModal] = useState(false)
+  const [showTriviaModal, setShowTriviaModal] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
   // Check mobile on mount (must be in useEffect, not before hooks)
@@ -138,7 +140,7 @@ export default function CardBackButtons({
           type="button"
           onClick={(e) => {
             e.stopPropagation()
-            window.open(triviaUrl, '_blank', 'noopener,noreferrer')
+            setShowTriviaModal(true)
           }}
           onMouseEnter={() => setHoveredButton('trivia')}
           onMouseLeave={() => setHoveredButton(null)}
@@ -163,6 +165,12 @@ export default function CardBackButtons({
         <YouTubeModal
           url={youtubeUrl}
           onClose={() => setShowYouTubeModal(false)}
+        />
+      )}
+      {showTriviaModal && (
+        <TriviaModal
+          url={triviaUrl}
+          onClose={() => setShowTriviaModal(false)}
         />
       )}
     </>,

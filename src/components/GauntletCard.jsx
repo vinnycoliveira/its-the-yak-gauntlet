@@ -8,6 +8,8 @@ import ResumeSticker from './stickers/ResumeSticker'
 import AsteriskSticker from './stickers/AsteriskSticker'
 import { NameLabelParallelogramPop, TimeLabelParallelogramPop, NameLabelRibbonPop, TimeLabelRibbonPop, NameLabelHotdog, TimeLabelHotdog } from './labels'
 import CardBackButtons from './CardBackButtons'
+import YouTubeModal from './YouTubeModal'
+import TriviaModal from './TriviaModal'
 
 // Check if we're on mobile (matches CSS breakpoint)
 const isMobileViewport = () =>
@@ -41,9 +43,12 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
   const [isFlipping, setIsFlipping] = useState(false)
   const [flipDirection, setFlipDirection] = useState(null) // 'to-back' or 'to-front' for CSS animation
   const [imageErrors, setImageErrors] = useState({})
+  const [imageLoaded, setImageLoaded] = useState({})
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [pointer, setPointer] = useState({ x: 50, y: 50 }) // Pointer position as percentage
   const [isMobile, setIsMobile] = useState(false) // Must use state to avoid SSR/hydration issues
+  const [showYouTubeModal, setShowYouTubeModal] = useState(false)
+  const [showTriviaModal, setShowTriviaModal] = useState(false)
   const buttonsPlaceholderRef = useRef(null)
   const cardContainerRef = useRef(null)
 
@@ -230,48 +235,67 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
             <div className="photo-container absolute">
               {isTeamRun ? (
                 <div className={`team-photo-grid team-photo-grid-${run.teamMembers.length}`}>
-                  {run.teamMembers.map((member, index) => (
-                    <div key={member.name || index} className="team-photo-cell">
-                      {member.photoUrl && !imageErrors[member.name] ? (
-                        (() => {
-                          const imageProps = getResponsiveImageUrls(member.photoUrl)
-                          return (
-                            <img
-                              src={imageProps.src}
-                              srcSet={imageProps.srcSet}
-                              sizes={imageProps.sizes}
-                              alt={member.name}
-                              loading="lazy"
-                              decoding="async"
-                              className="w-full h-full object-cover object-top"
-                              onError={() => setImageErrors((prev) => ({ ...prev, [member.name]: true }))}
-                            />
-                          )
-                        })()
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-card-burgundy/20 to-card-dark-red/20">
-                          <span className="text-2xl font-display text-white/30">
-                            {(member.name || '?').charAt(0)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                  {run.teamMembers.map((member, index) => {
+                    const memberKey = `team-${member.name || index}`
+                    return (
+                      <div key={member.name || index} className="team-photo-cell">
+                        {member.photoUrl && !imageErrors[member.name] ? (
+                          (() => {
+                            const imageProps = getResponsiveImageUrls(member.photoUrl)
+                            return (
+                              <>
+                                <div className={`photo-skeleton ${imageLoaded[memberKey] ? 'loaded' : ''}`} />
+                                <img
+                                  src={imageProps.src}
+                                  srcSet={imageProps.srcSet}
+                                  sizes={imageProps.sizes}
+                                  alt={member.name}
+                                  loading="lazy"
+                                  decoding="async"
+                                  className="w-full h-full object-cover object-top"
+                                  style={{
+                                    opacity: imageLoaded[memberKey] ? 1 : 0,
+                                    transition: 'opacity 0.3s ease-in-out',
+                                  }}
+                                  onLoad={() => setImageLoaded((prev) => ({ ...prev, [memberKey]: true }))}
+                                  onError={() => setImageErrors((prev) => ({ ...prev, [member.name]: true }))}
+                                />
+                              </>
+                            )
+                          })()
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-card-burgundy/20 to-card-dark-red/20">
+                            <span className="text-2xl font-display text-white/30">
+                              {(member.name || '?').charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               ) : run.photoUrl && !imageErrors.single ? (
                 (() => {
                   const imageProps = getResponsiveImageUrls(run.photoUrl)
                   return (
-                    <img
-                      src={imageProps.src}
-                      srcSet={imageProps.srcSet}
-                      sizes={imageProps.sizes}
-                      alt={run.competitor}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover object-top"
-                      onError={() => setImageErrors((prev) => ({ ...prev, single: true }))}
-                    />
+                    <>
+                      <div className={`photo-skeleton ${imageLoaded.single ? 'loaded' : ''}`} />
+                      <img
+                        src={imageProps.src}
+                        srcSet={imageProps.srcSet}
+                        sizes={imageProps.sizes}
+                        alt={run.competitor}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-top"
+                        style={{
+                          opacity: imageLoaded.single ? 1 : 0,
+                          transition: 'opacity 0.3s ease-in-out',
+                        }}
+                        onLoad={() => setImageLoaded((prev) => ({ ...prev, single: true }))}
+                        onError={() => setImageErrors((prev) => ({ ...prev, single: true }))}
+                      />
+                    </>
                   )
                 })()
               ) : (
@@ -456,7 +480,7 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                           className="card-back-link youtube"
                           onClick={(e) => {
                             e.stopPropagation()
-                            window.open(run.youtubeUrl, '_blank', 'noopener,noreferrer')
+                            setShowYouTubeModal(true)
                           }}
                           style={{ background: variant.colors.stickerPrimary, color: isLightColor(variant.colors.stickerPrimary) ? '#000' : '#fff' }}
                         >
@@ -469,7 +493,7 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
                           className="card-back-link trivia"
                           onClick={(e) => {
                             e.stopPropagation()
-                            window.open(run.triviaUrl, '_blank', 'noopener,noreferrer')
+                            setShowTriviaModal(true)
                           }}
                           style={{ background: variant.colors.secondary, color: isLightColor(variant.colors.secondary) ? '#000' : '#fff' }}
                         >
@@ -501,6 +525,23 @@ export default function GauntletCard({ run, variantOverrides = {}, inPSACase = f
           fabOffsetX={inPSACase ? -8 : -32}
           fabOffsetY={inPSACase ? -8 : -56}
           inPSACase={inPSACase}
+        />
+      )}
+
+      {/* YouTube modal for mobile */}
+      {isMobile && showYouTubeModal && (
+        <YouTubeModal
+          url={run.youtubeUrl}
+          onClose={() => setShowYouTubeModal(false)}
+          autoFullscreen={true}
+        />
+      )}
+
+      {/* Trivia modal for mobile */}
+      {isMobile && showTriviaModal && (
+        <TriviaModal
+          url={run.triviaUrl}
+          onClose={() => setShowTriviaModal(false)}
         />
       )}
     </div>

@@ -139,6 +139,37 @@
   overflow: hidden;
 }
 
+/* Skeleton shimmer animation for loading images */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.photo-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hide shimmer when image is loaded */
+.photo-skeleton.loaded {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 /* Team photo grid - for team runs with multiple competitors */
 .team-photo-grid {
   width: 100%;
